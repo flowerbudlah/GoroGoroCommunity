@@ -1,0 +1,12 @@
+INDEX VERSION 1.4+C:\Workspace\GoroGoroCommunity\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1809326842.index
+990683481.index
+666082099.index
+1121533911.index
+3705357652.index
+1121533911.index
+2322545271.index
+1809326842.index
+841105316.index
+3868353624.index
+1135138332.index

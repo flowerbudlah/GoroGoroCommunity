@@ -1,0 +1,13 @@
+127.0.0.1 - - [21/Jan/2025:11:25:39 +0900] "GET / HTTP/1.1" 404 807
+0:0:0:0:0:0:0:1 - - [21/Jan/2025:11:25:53 +0900] "GET /GoroGoroCommunity/ HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [21/Jan/2025:11:25:54 +0900] "GET /GoroGoroCommunity/main HTTP/1.1" 200 14241
+0:0:0:0:0:0:0:1 - - [21/Jan/2025:11:25:55 +0900] "GET /GoroGoroCommunity/image/banner/banner.png HTTP/1.1" 200 9297
+0:0:0:0:0:0:0:1 - - [21/Jan/2025:11:25:55 +0900] "GET /GoroGoroCommunity/css/slide.css HTTP/1.1" 200 3241
+0:0:0:0:0:0:0:1 - - [21/Jan/2025:11:25:55 +0900] "GET /GoroGoroCommunity/js/slide.js HTTP/1.1" 200 8051
+0:0:0:0:0:0:0:1 - - [21/Jan/2025:11:25:55 +0900] "GET /GoroGoroCommunity/image/banner/pinkPeko.gif HTTP/1.1" 200 265309
+0:0:0:0:0:0:0:1 - - [21/Jan/2025:11:25:55 +0900] "GET /GoroGoroCommunity/image/banner/smilingPekko.png HTTP/1.1" 200 316705
+0:0:0:0:0:0:0:1 - - [21/Jan/2025:11:25:56 +0900] "GET /GoroGoroCommunity/image/bottom-bg.jpg HTTP/1.1" 200 30234
+0:0:0:0:0:0:0:1 - - [21/Jan/2025:11:25:56 +0900] "GET /GoroGoroCommunity/image/banner/slide01.png HTTP/1.1" 200 46781
+0:0:0:0:0:0:0:1 - - [21/Jan/2025:11:25:56 +0900] "GET /GoroGoroCommunity/image/banner/slide02.png HTTP/1.1" 200 75763
+0:0:0:0:0:0:0:1 - - [21/Jan/2025:11:25:56 +0900] "GET /GoroGoroCommunity/image/banner/slide03.png HTTP/1.1" 200 71851
+0:0:0:0:0:0:0:1 - - [21/Jan/2025:11:25:57 +0900] "GET /GoroGoroCommunity/image/favicon.png HTTP/1.1" 200 8558
