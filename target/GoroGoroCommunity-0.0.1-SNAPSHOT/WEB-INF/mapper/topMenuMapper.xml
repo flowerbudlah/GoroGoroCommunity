@@ -6,14 +6,14 @@
 	<!-- 1. 게시판 대분류(카테고리) 불러오기 -->
 	<select id="CategoryList" resultType="com.spring.dto.CategoryDTO">
 		select * 
-		from boardCategory 
+		from boardcategory 
 		order by boardCategoryNo
 	</select>
 
 	<!-- 2. 게시판 가져오기 -->
 	<select id="BoardList" resultType="com.spring.dto.BoardDTO">
 		select * 
-		from boardInCategory
+		from boardincategory
 	</select>
 
 </mapper>
