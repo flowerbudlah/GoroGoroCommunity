@@ -47,7 +47,8 @@
   .slide_item.item1 {
   
   /*background-image: url(/GoroGoroCommunity/image/banner/slide01.png);*/
-    background-image: url(http://localhost:8080/GoroGoroCommunity/image/banner/slide01.png);
+  /*background-image: url(http://localhost:8080/GoroGoroCommunity/image/banner/slide01.png);*/
+  background-image: url(image/banner/slide02.png);
   }
   .slide_item.item2 {
  

@@ -8,8 +8,7 @@
 <title>GoroGoro Community(ゴロゴロ)</title>
 <link rel="icon" type="image/x-icon" href="image/favicon.png">
 <!-- Main's screen slide -->
-<link rel="stylesheet" href="${root }css/slide.css" />
-<!-- Bootstrap CDN -->
+<link rel="stylesheet" href="css/slide.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -28,7 +27,7 @@
 	font-family: 'Single Day', cursive;
 }
 body {
-	background-image: url(http://localhost:8080/GoroGoroCommunity/image/bottom-bg.jpg);
+	background-image: url(image/bottom-bg.jpg);
 	background-repeat: no-repeat;
 	background-position: center bottom;
 	background-attachment: fixed;
@@ -55,7 +54,7 @@ thead {
 		<div class="slide_next_button slide_button"></div>
 		<ul class="slide_pagination"></ul>
 	</div>
-	<script src="${root }js/slide.js"></script>
+	<script src="js/slide.js"></script>
 	<!-- 메뉴부분 -->
 	<c:import url="/WEB-INF/view/include/topMenu.jsp" />
 	<!--메인화면에 내용 들어가는 부분  -->
@@ -64,7 +63,7 @@ thead {
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="card-body">
-					<div> ${root }
+					<div>
 						<h3>Please Sign in as administrator(ID: admin@gorogoro.com). ${root }</h3>
 						<p class="text-center" style="margin-bottom: 20px">
 							▶please, Sign in with the administrator ID(<strong>admin@gorogoro.com</strong>), 
