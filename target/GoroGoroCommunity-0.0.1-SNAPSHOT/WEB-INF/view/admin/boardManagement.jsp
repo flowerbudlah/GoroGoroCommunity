@@ -263,7 +263,7 @@
 </script>
 <style>
 body {
-	background-image: url(http://localhost:8080/GoroGoroCommunity/image/bottom-bg.jpg);
+	background-image: url(${root }image/bottom-bg.jpg);
 	background-repeat: no-repeat;
 	background-position: center bottom;
 	background-attachment: fixed;

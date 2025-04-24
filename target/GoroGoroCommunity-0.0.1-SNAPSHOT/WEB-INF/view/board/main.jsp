@@ -39,7 +39,8 @@ h1 {
 <body>
 <c:import url="/WEB-INF/view/include/topMenu.jsp" />
 <article class="slider">
-	<img src="http://localhost:8080/GoroGoroCommunity/image/candy01.png">
+	<!-- <img src="http://localhost:8080/GoroGoroCommunity/image/candy01.png"> -->
+	<img src="https://gorogorocommunity-production.up.railway.app/image/candy01.png">
 </article>
 <!--Post List (게시글 리스트)-->
 <div class="container" style="margin-top: 50px; margin-bottom: 100px;">
@@ -136,13 +137,13 @@ h1 {
 							<%--관리자게시판 인경우 --%>
 							<c:choose>
 								<c:when test="${signInMemberDTO.memberNo == 1}">
-									<%--관리자게시판 인경우, 관리자만 글쓰기 버튼을 보고 --%>
+									<%--관리자 게시판인경우, 관리자만 글쓰기 버튼을 보고 --%>
 									<div class="text-right">
 										<a href="write?boardNo=${boardNo }" class="btn btn-warning">Write</a>
 									</div>
 								</c:when>
 								<c:otherwise></c:otherwise>
-								<%--관리자게시판 인경우, 관리자가 아니라면 글쓰기버튼은 안보인다.  --%>
+							<%--관리자게시판 인경우, 관리자가 아니라면 글쓰기버튼은 안보인다.  --%>
 							</c:choose>
 						</c:when>
 						<c:otherwise>
@@ -185,9 +186,9 @@ h1 {
 										</li>
 									</c:when>
 									<c:otherwise>
-										<li class="page-item"><a
-											href="searchResult?boardNo=${boardNo}&type=${type }&keyword=${keyword }&page=${idx}"
-											class="page-link">${idx}</a></li>
+										<li class="page-item">
+											<a href="searchResult?boardNo=${boardNo}&type=${type }&keyword=${keyword }&page=${idx}" class="page-link">${idx}</a>
+										</li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -196,13 +197,14 @@ h1 {
 								<c:when
 									test="${searchListPageDTO.max >= searchListPageDTO.pageCount }">
 									<!--맨 마지막 페이지인 경우에는 다음 버튼이 안 보이도록 함 (최대페이지가 전체페이지개수보다 크면 다음이 안 보이도록 함) -->
-									<li class="page-item disabled"><a href="#"
-										class="page-link">다음</a></li>
+									<li class="page-item disabled">
+										<a href="#" class="page-link">Next</a>
+									</li>
 								</c:when>
 								<c:otherwise>
-									<li class="page-item"><a
-										href="searchResult?boardNo=${boardNo }&type=${type }&keyword=${keyword }&page=${searchPageDTO.prePage}"
-										class='page-link'>다음</a></li>
+									<li class="page-item">
+										<a href="searchResult?boardNo=${boardNo }&type=${type }&keyword=${keyword }&page=${searchPageDTO.prePage}" class='page-link'>Next</a>
+									</li>
 								</c:otherwise>
 							</c:choose>
 						</ul>
@@ -244,13 +246,14 @@ h1 {
 							<c:choose>
 								<c:when test="${pageDTO.max >= pageDTO.pageCount }">
 									<!--맨 마지막 페이지인 경우에는 다음 버튼이 안 보이도록 함 (최대페이지가 전체페이지개수보다 크면 다음이 안 보이도록 함) -->
-									<li class="page-item disabled"><a href="#"
-										class="page-link">Next</a></li>
+									<li class="page-item disabled">
+										<a href="#" class="page-link">Next</a>
+									</li>
 								</c:when>
 								<c:otherwise>
-									<li class="page-item"><a
-										href="main?boardNo=${boardNo}&type=${type }&keyword=${keyword }&page=${pageDTO.nextPage}"
-										class="page-link">Next</a></li>
+									<li class="page-item">
+										<a href="main?boardNo=${boardNo}&type=${type }&keyword=${keyword }&page=${pageDTO.nextPage}" class="page-link">Next</a>
+									</li>
 								</c:otherwise>
 							</c:choose>
 						</ul>

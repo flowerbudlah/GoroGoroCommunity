@@ -3,19 +3,19 @@
 	display: flex;
 	flex-wrap: nowrap;
     
-    /* 컨테이너의 내용물이 컨테이너 크기(width, height)를 넘어설 때 보이지 않도록 하기 위해 hidden을 준다. */
-    overflow: hidden;
+	/* 컨테이너의 내용물이 컨테이너 크기(width, height)를 넘어설 때 보이지 않도록 하기 위해 hidden을 준다. */
+	overflow: hidden;
   
-    /* position */
-    /* slide_button의 position absolute가 컨테이너 안쪽에서 top, left, right offset이 적용될 수 있도록 relative를 준다. (기본값이 static인데, static인 경우 그 상위 컨테이너로 나가면서 현재 코드에선 html을 기준으로 offset을 적용시키기 때문) */
-    position: relative;
+	/* position */
+	/* slide_button의 position absolute가 컨테이너 안쪽에서 top, left, right offset이 적용될 수 있도록 relative를 준다. (기본값이 static인데, static인 경우 그 상위 컨테이너로 나가면서 현재 코드에선 html을 기준으로 offset을 적용시키기 때문) */
+	position: relative;
   
 	width: 100%; /* size */
 	user-select: none; /* slide drag를 위해 DOM요소가 드래그로 선택되는것을 방지 */
-  }
-  .slide_item {
-    /* layout */
-    display: flex; align-items: center; justify-content: center;
+}
+.slide_item {
+	/* layout */
+	display: flex; align-items: center; justify-content: center;
   
     position: relative; /* position - 버튼 클릭시 left offset값을 적용시키기 위해 */
     left: 0px;
@@ -41,35 +41,34 @@
 	width: 10px; height: 10px;    /* size */
  	border-radius: 100%; background-color: #cccc; cursor: pointer;     /* style */
   }
-  .slide_prev_button { left: 5px; }
-  .slide_next_button { right: 5px; }
-  /* 각 슬라이드가 변경되는 것을 시각적으로 확인하기 쉽도록 각 슬라이드별 색상 적용 */
-  .slide_item.item1 {
-  
-  /*background-image: url(/GoroGoroCommunity/image/banner/slide01.png);*/
-  /*background-image: url(http://localhost:8080/GoroGoroCommunity/image/banner/slide01.png);*/
-  background-image: url(image/banner/slide02.png);
-  }
-  .slide_item.item2 {
- 
- /*background-image: url(/GoroGoroCommunity/image/banner/slide02.png);*/
-    background-image: url(http://localhost:8080/GoroGoroCommunity/image/banner/slide02.png);
-  }
-  .slide_item.item3 {
-  
- /*background-image: url(/GoroGoroCommunity/image/banner/slide03.png);*/
-    background-image: url(http://localhost:8080/GoroGoroCommunity/image/banner/slide03.png);
-  }
-  .slide_item.item4 {
-    background-image: url();
-  }
-  .slide_item.item5 {
-    background-image: url();
-  }
+.slide_prev_button {
+	left: 5px; 
+}
+.slide_next_button {
+	right: 5px; 
+}
+/* 각 슬라이드가 변경되는 것을 시각적으로 확인하기 쉽도록 각 슬라이드별 색상 적용 */
+.slide_item.item1 {
+	/*background-image: url(/GoroGoroCommunity/image/banner/slide01.png);*/
+	background-image: url(https://gorogorocommunity-production.up.railway.app/image/banner/slide01.png);
+}
+.slide_item.item2 {
+	/*background-image: url(/GoroGoroCommunity/image/banner/slide02.png);*/
+	background-image: url(https://gorogorocommunity-production.up.railway.app/image/banner/slide02.png);
+}
+.slide_item.item3 {
+	/*background-image: url(/GoroGoroCommunity/image/banner/slide03.png);*/
+	background-image: url(https://gorogorocommunity-production.up.railway.app/image/banner/slide03.png);
+}
+.slide_item.item4 {
+	background-image: url();
+}
+.slide_item.item5 {
+	background-image: url();
+}
+ul, li { /* 페이지네이션 스타일 */ list-style-type: none; padding: 0; margin: 0; }
 
-  ul,
-  li { /* 페이지네이션 스타일 */ list-style-type: none; padding: 0; margin: 0; }
-  .slide_pagination {
+.slide_pagination {
     /* layout */
     display: flex;
     gap: 5px;
