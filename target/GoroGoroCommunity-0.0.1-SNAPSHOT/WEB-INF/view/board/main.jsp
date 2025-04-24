@@ -24,8 +24,7 @@
 }
 /* slider's section CSS */
 body {
-	background-image:
-		url(http://localhost:8080/GoroGoroCommunity/image/bottom-bg.jpg);
+	background-image: url(http://localhost:8080/GoroGoroCommunity/image/bottom-bg.jpg);
 	background-repeat: no-repeat;
 	background-position: center bottom;
 	background-attachment: fixed;
@@ -42,7 +41,7 @@ h1 {
 <body>
 <c:import url="/WEB-INF/view/include/topMenu.jsp" />
 <article class="slider">
-	<img src="/GoroGoroCommunity/image/candy01.png">
+	<img src="http://localhost:8080/GoroGoroCommunity/image/candy01.png">
 </article>
 <!--Post List (게시글 리스트)-->
 <div class="container" style="margin-top: 50px; margin-bottom: 100px;">

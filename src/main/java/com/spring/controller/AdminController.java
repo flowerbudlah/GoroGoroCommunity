@@ -32,7 +32,7 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
-	// 1. 회원 관리 페이지로 이동 (Going to the Member management Page)
+	// 1. 1) 회원 관리 페이지로 이동 (Going to the Member management Page)
 	@RequestMapping("/memberManagement")
 	public String memberManagement(Model model) {
 
@@ -42,7 +42,7 @@ public class AdminController {
 		return "admin/memberManagement";
 	}
 
-	// 1. 1) 회원관리 페이지에서 특정회원 검색하기 (With using AJAX, Searching the member in the member management page)
+	// 1. 2) 회원관리 페이지에서 특정회원 검색하기 (With using AJAX, Searching the member in the member management page)
 	@GetMapping("/searchMemberList")
 	public @ResponseBody List<MemberDTO> searchMemberList(
 	    @RequestParam("type") String type, 
@@ -68,7 +68,7 @@ public class AdminController {
 	    }
 	}
 
-	// 1. 2) 회원 관리 페이지에서 회원의 로그인 실시간 기록 파악 가능 (Going to the real-time login record page.)
+	// 1. 3) 회원 관리 페이지에서 회원의 로그인 실시간 기록 파악 가능 (Going to the real-time login record page.)
 	@RequestMapping("/realTimeAboutLogin")
 	public String realTimeAboutLogin(Model model, @RequestParam(value = "nick") String nick) {
 
@@ -79,7 +79,7 @@ public class AdminController {
 		return "admin/realTimeAboutLogin";
 	}
 
-	// 1. 3) 특정회원의 로그인 일시정지 시기키 (making Sign-in of a specific user pause)
+	// 1. 4) 특정회원의 로그인 일시정지 시기키 (making Sign-in of a specific user pause)
 	@RequestMapping("/makeIdSuspend")
 	public @ResponseBody MemberDTO makeIdSuspend(String email) {
 
@@ -87,7 +87,7 @@ public class AdminController {
 		return emailToSuspend;
 	}
 
-	// 1. 4) 특정회원의 로그인 일시정지 해제 (making suspended Sign-in activate)
+	// 1. 5) 특정회원의 로그인 일시정지 해제 (making suspended Sign-in activate)
 	@RequestMapping("/makeIdActive")
 	public @ResponseBody MemberDTO makeIdActive(String email) {
 		
@@ -95,7 +95,7 @@ public class AdminController {
 		return activeEmail;
 	}
 
-	// 2. 게시물 관리 페이지로 이동 (Going to the Post Management page. This page show administrator the reported Posts.)
+	// 2. 1) 게시물 관리 페이지로 이동 (Going to the Post Management page. This page show administrator the reported Posts.)
 	@RequestMapping("/postManagement")
 	public String postManagement(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 
@@ -110,7 +110,7 @@ public class AdminController {
 		return "admin/postManagement";
 	}
 
-	// 2. 1) 게시물 관리 페이지안에서 신고 보고서에 대한 관리자측의 검색결과 (The Search results in the post management page)
+	// 2. 2) 게시물 관리 페이지안에서 신고 보고서에 대한 관리자측의 검색결과 (The Search results in the post management page)
 	@RequestMapping("/searchResult")
 	public String searchResult(Model model,
 			@RequestParam("type") String type,
@@ -139,7 +139,7 @@ public class AdminController {
 		return "admin/postManagement";
 	}
 
-	// 2. 2) 관리자가 신고보고서 게시글에 대해 답글을 달기 (The administrator responds to the report from the other user.)
+	// 2. 3) 관리자가 신고보고서 게시글에 대해 답글을 달기 (The administrator responds to the report from the other user.)
 	@RequestMapping("/writeAdminReplyProcess")
 	public @ResponseBody AdminReplyDTO writeReplyProcess(HttpServletRequest request, HttpServletResponse response, AdminReplyDTO writeAdminReplyDTO) {
 
@@ -148,7 +148,7 @@ public class AdminController {
 
 	}
 
-	// 2. 3) 관리자가 신고보고서에 작성한 댓글삭제 
+	// 2. 4) 관리자가 신고보고서에 작성한 댓글삭제 
 	// The function that Administrator deletes comments written by administrators in report.
 	@RequestMapping("/removeAdminReply")
 	public @ResponseBody AdminReplyDTO removeAdminReply
@@ -158,13 +158,13 @@ public class AdminController {
 		return ReplyDTO;
 	}
 
-	// 3. 게시판 관리 페이지로 이동 (Going to the board management Page.)
+	// 3. 1) 게시판 관리 페이지로 이동 (Going to the board management Page.)
 	@RequestMapping("/boardManagement")
 	public String boardManagement() {
 		return "admin/boardManagement";
 	}
 
-	// 3. 1) 게시판 카테고리를 생성 (Creating a category in the board management page.)
+	// 3. 2) 게시판 카테고리를 생성 (Creating a category in the board management page.)
 	@RequestMapping("/makeCategory")
 	public @ResponseBody CategoryDTO make(String boardCategoryName) {
 
@@ -198,7 +198,7 @@ public class AdminController {
 		}
 	}
 
-	// 3. 2) 카테고리 이름 중복체크 (Duplicate Check of Category's name)
+	// 3. 3) 카테고리 이름 중복체크 (Duplicate Check of Category's name)
 	public boolean checkCategoryName(String boardCategoryName) {
 
 		String result = adminService.checkCategory(boardCategoryName);
@@ -219,16 +219,16 @@ public class AdminController {
 		}
 	}
 
-	// 3. 3) 카테고리 삭제 (Deleting the Category)
+	// 3. 4) 카테고리 삭제 (Deleting the Category)
 	@RequestMapping("/deleteCategory")
 	public @ResponseBody CategoryDTO deleteCategory(int boardCategoryNo) {
 		CategoryDTO categoryDTOtoDelete = adminService.deleteCategory(boardCategoryNo);
 		return categoryDTOtoDelete;
 	}
 
-	// 3. 4) (카테고리에 포함된) 게시판을 생성 (Creating a board included in a category)
-	@RequestMapping("/makeBulletinBoard")
-	public @ResponseBody BoardDTO makeBulletinBoard(BoardDTO BoardDTOinCategory) {
+	// 3. 5) (카테고리에 포함된) 게시판을 생성 (Creating a board included in a category)
+	@RequestMapping("/makeNewBoard")
+	public @ResponseBody BoardDTO makeNewBoard(BoardDTO BoardDTOinCategory) {
 
 		// 변수로 들어온 값인 게시판이름이 문자열이 전혀 없는 공란(" ", blank)뿐 이라면 불가
 		// If the board name that is entered as a variable is a blank space (" ", blank) with no strings at all, it is not possible.
@@ -258,7 +258,7 @@ public class AdminController {
 		}
 	}
 
-	// 3. 5) 새로운 게시판을 만드는 경우, 같은 카테고리 안에 이미 해당 게시판 이름이 존재하면 만들 수 없는 기능 (동일 카테고리 안에서 게시판이름 중복금지)
+	// 3. 6) 새로운 게시판을 만드는 경우, 같은 카테고리 안에 이미 해당 게시판 이름이 존재하면 만들 수 없는 기능 (동일 카테고리 안에서 게시판이름 중복금지)
 	// Duplicate board names within the same category are not allowed.
 	public boolean checkBoardNameInTheSameCategory(BoardDTO boardNameAndCategoryNo) {
 
@@ -277,7 +277,7 @@ public class AdminController {
 		}
 	}
 
-	// 3. 6) 게시판 이름 변경 (Modify the board's name)
+	// 3. 7) 게시판 이름 변경 (Modify the board's name)
 	@RequestMapping("/changeBoardName")
 	public @ResponseBody BoardDTO changeBoardName(@ModelAttribute BoardDTO boardDTOinCategory) {
 
@@ -305,7 +305,7 @@ public class AdminController {
 	    }
 	}
 
-	// 3. 7) 게시판 삭제
+	// 3. 8) 게시판 삭제
 	@RequestMapping("/deleteBoard")
 	public @ResponseBody BoardDTO deleteBoard(int boardNo) throws Exception {
 		
@@ -313,7 +313,7 @@ public class AdminController {
 		return boardToDelete; 
 	}
 
-	// 3. 8) 게시판이 속해있는 카테고리의 변경 (Changing the category of the board)
+	// 3. 9) 게시판이 속해있는 카테고리의 변경 (Changing the category of the board)
 	@RequestMapping("/changeCategory")
 	public @ResponseBody BoardDTO changeBoardCategory(@ModelAttribute BoardDTO boardDTOinCategory) {
 
@@ -341,7 +341,5 @@ public class AdminController {
 			adminService.changeCategory(boardDTOinCategory);
 			return boardDTOinCategory;			
 		}
-
 	}
-	
 }

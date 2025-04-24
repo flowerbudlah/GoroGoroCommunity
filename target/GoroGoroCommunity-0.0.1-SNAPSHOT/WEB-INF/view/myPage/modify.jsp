@@ -93,7 +93,7 @@ function deleteImageFile(){
 <body>
 <c:import url="/WEB-INF/view/include/topMenu.jsp" />
 <article class="slider">
-	<img src="/GoroGoroCommunity/image/bluePond01.png">
+	<img src="http://localhost:8080/GoroGoroCommunity/image/bluePond01.png">
 </article>
 <div class="container" style="margin-top:100px; margin-bottom:100px">
 	<div class="row">

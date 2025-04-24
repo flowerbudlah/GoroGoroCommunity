@@ -138,11 +138,10 @@ body{ background-color: white; }
 </style>
 </head>
 <body>
-<!-- 메뉴부분 -->
 <c:import url="/WEB-INF/view/include/topMenu.jsp"/>
-<!--가운데 그림-->
-<article class="slider"><img src="${root }image/Camping.jpg"></article>
-<!-- 회원가입 폼 -->
+<article class="slider">
+	<img src="${root }image/candy07.jpg">
+</article>
 <div class="container" style="margin-top:50px; margin-bottom:50px;">
 	<div class="row">
 		<div class="col-sm-3"></div>

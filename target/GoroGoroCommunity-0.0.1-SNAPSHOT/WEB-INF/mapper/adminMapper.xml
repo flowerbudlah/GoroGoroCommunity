@@ -58,11 +58,10 @@
 		where boardCategoryNo =#{boardCategoryNo}
 	</delete>
 
-
 	<!-- 2. 1) 회원목록 가져오기(at 관리자 페이지) -->
 	<select id="takeMemberList" resultType="com.spring.dto.MemberDTO">
-	select m.memberNo, m.email, m.nick, m.signUpdate,
-			(select count(*) from freeBoard f where f.writer =m.nick ) as 'postCount',
+	select m.memberNo, m.email, m.nick, m.signUpdate, m.accountStatus, m.suspensionEndDate, 
+			(select count(*) from freeboard f where f.writer =m.nick ) as 'postCount',
 			(select count(*) from reply r where r.replyWriter =m.nick ) as 'replyCount',
 			(select count(*) 
 			from(
@@ -76,7 +75,7 @@
 				select ms.nick, fb.postNo
 				from flag fg, members ms, freeboard fb 
 				where (fg.postNo = fb.postNo)  and (ms.nick = fb.writer) and (ms.nick = m.nick) 
-            	) validCaution ) as 'flagCount', m.accountStatus, m.suspensionEndDate
+            	) validCaution ) as 'flagCount'
 		from members m
 		order by
 		memberNo ASC;
@@ -92,7 +91,7 @@
 
 	<!-- 2. 2) 회원정보 검색(at 관리자페이지) -->
 	<select id="searchMemberList" parameterType="com.spring.dto.MemberDTO" resultType="com.spring.dto.MemberDTO">
-		select m.memberNo, m.email, m.nick, DATE_FORMAT (m.signUpDate,'%Y년%m월%d일 %H시%i분%S초') as signUp_Date, 
+		select m.memberNo, m.email, m.nick, DATE_FORMAT (m.signUpDate,'%Y년%m월%d일 %H시%i분%S초') as signUp_Date,   m.accountStatus, m.suspensionEndDate, 
 				(select count(*) from freeboard f where f.writer =m.nick ) as 'postCount', 
 				(select count(*) from reply r where r.replyWriter =m.nick ) as 'replyCount',
 				(select count(*) 
@@ -103,7 +102,7 @@
 				from (select ms.nick, fb.postNo
 					  from flag fg, members ms, freeboard fb 
 					  where (fg.postNo = fb.postNo)  and (ms.nick = fb.writer) and (ms.nick = m.nick)
-					 ) validCaution ) as 'flagCount',  m.accountStatus, m.suspensionEndDate
+					 ) validCaution ) as 'flagCount'
 		from members m
 		where
 		<if test="type!=null and type == 'email'">
@@ -127,9 +126,7 @@
 
 	<!-- 3. 1) 신고된 게시글 보기 -->
 	<select id="takeReportedPost" resultType="com.spring.dto.ReportDTO">
-		select *, (select count(*)  
-					from adminreply 
-					where reportNo = r.reportNo) as replyCount
+		select *, (select count(*) from adminreply where reportNo = r.reportNo) as replyCount
 		from reportboard r
 		order by reportNo DESC
 	</select>
@@ -216,7 +213,5 @@
 		set accountStatus = "active", suspensionEndDate = null
 		where email = #{email}
 	</update>
-	
-
 
 </mapper>

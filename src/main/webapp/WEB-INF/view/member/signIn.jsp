@@ -45,6 +45,7 @@
 					function(data, textStatus, xhr) {
 
 						if (data == 'loginFail') {
+							
 							alert('Please, Confirm your E-mail and passwords one more time. ');
 
 						} else if (data == 'loginSuccess') {

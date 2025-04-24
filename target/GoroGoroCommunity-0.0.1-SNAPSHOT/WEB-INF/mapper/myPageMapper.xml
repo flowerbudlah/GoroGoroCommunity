@@ -5,7 +5,7 @@
 	
 	<!-- 1. 1) 내가 신고한 내역(신고보고서) 목록보기 (게시판 메인화면) -->
 	<select id="takeMyReportDTO" parameterType="java.lang.String" resultType="com.spring.dto.ReportDTO">
-		select *, (select count(*) from adminReply where reportNo = r.reportNo) as replyCount 
+		select *, (select count(*) from adminreply where reportNo = r.reportNo) as replyCount 
 		from reportboard r
 		where r.reporter = #{reporter}
 		order by r.reportNo desc
@@ -75,7 +75,7 @@
 	<!-- 3. 신고내역 자체를 삭제(Deleting)한다.(이 신고철회는 신고자만 가능하다. ) -->
 	<delete id="deleteReportDTO" parameterType="java.lang.Integer">
     	delete 
-    	from reportBoard 
+    	from reportboard 
     	where reportNo = #{reportNo}
     </delete> 
     
@@ -84,7 +84,7 @@
 	<select id="goMyPosts" parameterType="java.lang.Integer" resultType="com.spring.dto.PostDTO">
 		select f.postNo, f.title, f.content, f.writer, f.regDate, f.viewCount, f.sameThinking, f.boardNo, f.imageFileName, 
 				(select count(*) from reply where postNo = f.postNo) as replyCount, b.boardName
-		from freeBoard f, members m, boardInCategory b
+		from freeboard f, members m, boardincategory b
 		where f.writer = m.nick and f.boardNo = b.boardNo and m.memberNo = #{memberNo}
 		order by f.postNo desc
 	</select>
@@ -92,7 +92,7 @@
 	<!-- 6. 2) 그 해당 게시판에 써져있는 게시글 수 가져오기(페이징 작업때문에 필요하다. ) -->
 	<select id="takeCountOfMyPost" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		select count(*) 
-		from freeBoard f, members m 
+		from freeboard f, members m 
 		where f.writer = m.nick and memberNo = #{memberNo}
 	</select>
     
@@ -101,7 +101,7 @@
 	<!-- 4. 내가 쓴 게시글의 조건별 검색 -->
 	<select id="searchList" parameterType="com.spring.dto.PostDTO" resultType="com.spring.dto.PostDTO">
 		select f.postNo, f.title, f.writer, DATE_FORMAT(f.regDate,'%Y-%m-%d') as regDate, f.viewCount, f.sameThinking, f.boardNo, b.boardName
-		from freeBoard f, boardInCategory b
+		from freeboard f, boardincategory b
 		where f.boardNo = b.boardNo and f.writer = #{writer} and
 			<if test="type!=null and type == 'title'">
 				f.title like CONCAT('%',#{keyword},'%')
@@ -118,7 +118,7 @@
 	<!-- 1. 4) 게시글 검색후, "검색결과 수" (페이징 작업 때문에 필요하다.) -->
 	<select id="searchCount" parameterType="com.spring.dto.PostDTO" resultType="java.lang.Integer">
 		select count(*)
-		from freeBoard f, boardInCategory b
+		from freeboard f, boardincategory b
 		where f.boardNo = b.boardNo and f.writer = #{writer} and
 			<if test="type!=null and type == 'title'">
 				f.title like CONCAT('%',#{keyword},'%')

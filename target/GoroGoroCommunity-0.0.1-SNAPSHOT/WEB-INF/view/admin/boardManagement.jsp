@@ -11,6 +11,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <script>
+
 	// 1. Create a Category (카테고리 생성)
 	function makeCategory() {
 
@@ -78,7 +79,7 @@
 							alert("The category was eliminated.");
 							location.reload(true);
 						} else {
-							alert("The category was not eliminated. Please, confirm one more time.");
+							alert("The category is not eliminated. Please, confirm one more time.");
 							return;
 						}
 					}
@@ -94,10 +95,10 @@
 	// 3. Creating a new board (새로운 게시판 생성)
 	function makeBoard() {
 
-		var boardName = $("#BoardName").val();
+		var boardName = $("#boardName").val();
 
 		if (boardName.length == 0) {
-			alert('새롭게 만드실 게시판의 이름을 입력해주세요. ');
+			alert('Please, enter a name of new board.');
 			return;
 
 		} else {
@@ -106,7 +107,7 @@
 			alert(formData);
 
 			$.ajax({
-				url : "${root}admin/makeBulletinBoard",
+				url : "${root}admin/makeNewBoard",
 				data : formData,
 				cache : false,
 				async : true,
@@ -116,30 +117,26 @@
 				success : function(obj) {
 					if (obj != null) {
 
-								var result = obj.result;
+						var result = obj.result;
 
-								if (result == null) {
+						if (result == null) {
+							
+							alert("Sorry, You cannot use this board's name because This board's name is already in use in The Category, ");
+							return false;
 
-									alert("해당 카테고리 안에 이 이름이 이미 존재하기에 사용불가합니다. 다른 이름으로 만들어주세요! ");
-									return false;
+						} else {
+							
+							alert("A new board has been created.");
+							location.reload(true);
 
-								} else {
-
-									alert("새로운 게시판이 생성되었습니다.");
-									location.reload(true);
-
-								}
-							}
-
-						},
-						error : function(request, status, error) {
-							alert("code:" + request.status + "\n" + "message:"
-									+ request.responseText + "\n" + "error:"
-									+ error);
 						}
-
-					})	
-			}
+					}
+				},
+				error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:"+ error);
+				}
+			})	
+		}
 	}
 
 	// 4. Chang a board's name (게시판 이름 변경)
@@ -189,9 +186,8 @@
 	// 5. 게시판이 속한 카테고리의 변경 (Updating the board’s category)
 	function changeCategory() {
 
-		var boardName = $("#boardName2").val();
-	
-		var boardNo = $("#boardNo2").val();
+		var boardName = $("#boardNameToUpdate").val();
+		var boardNo = $("#boardNoToChangeCategory").val();
 		var boardCategoryNo = $("#boardCategoryNo").val();
 		var formData = new FormData($('#categoryDTOtoChange')[0]);
 		
@@ -295,14 +291,14 @@ body {
 		<hr>
 		<h5><strong>1. Categories</strong></h5>
 			<form name="newCategoryDTO" method="post" id="newCategoryDTO" style="padding-top: 10px; padding-bottom: 10px">
-				1) Create a Category<br>
-				(1) Category's Name: 
+				1) Creation of new Category<br>
+				(1) new Category's Name :
 				<input type="text" id="boardCategoryName" value="" name="boardCategoryName" style="width: 300px;">
 				<button type="button" class="btn btn-warning btn-sm" style="text-align: right;" onClick="makeCategory();">Create</button>
 			</form>
 			<form name="deleteCategoryDTO" method="post" id="deleteCategoryDTO" style="padding-top: 10px; padding-bottom: 20px;">
-				2) Delete Category<br>
-				(1) Select a category to delete: 
+				2) Deletion of The category<br>
+				(1) The category to delete : 
 				<select name="boardCategoryNo" id="boardCategoryNo" style="width: 300px;">
 					<c:forEach var="CategoryListDTO" items="${CategoryList }">
 						<option value="${CategoryListDTO.boardCategoryNo }">${CategoryListDTO.boardCategoryName }</option>
@@ -313,26 +309,27 @@ body {
 				<font color="red">Please, Note that all boards and posts belonging to the category will also be deleted if you delete a category.</font>
 			</form>
 			<hr>
+			
 			<form name="newBoardDTO" method="post" id="newBoardDTO" style="padding-top: 10px; padding-bottom: 20px;">
 				<h5><strong>2. Board</strong></h5>
-				1) Create Board<br>
-				(1) Selecting the Category:
+				1) Creation of new Board<br>
+				(1) The Category that new board will belong to :
 				<select name="boardCategoryNo" style="width: 300px;">
 					<c:forEach var="CategoryListDTO" items="${CategoryList }">
 						<option value="${CategoryListDTO.boardCategoryNo }">${CategoryListDTO.boardCategoryName }</option>
 					</c:forEach>
-				</select><br>
-				(2) Board Name to Create:
-				<input type="text" id="BoardName" name="BoardName" value="" style="width: 300px;">
+				</select>
+				<br>
+				(2) new Board Name to Create :
+				<input type="text" id="boardName" name="boardName" value="" style="width: 300px;">
 				<button type="button" class="btn btn-warning btn-sm" style="text-align: right;" onClick="makeBoard();">Create</button>
 				<!-- button Type이 button으로 설정되면, 이 버튼을 작동시켜도 화면이 동기화되지 않는다. 
 				반면, Button Type이 submit으로 설정되거나 아예 아무것도 설정되지 않는 경우 이 버튼을 작동시키면 화면이 동기화되여 새로고침이 된다. -->
 			</form>
-			<!-- end 게시판 생성부분(같은 그룹안에 같은이름을 갖고있는 게시판은 만들수없다.) -->
-			
+
 			<form id="boardDTOtoChange" method="post" style="padding-top: 20px; padding-bottom: 10px;">
 			2) The Change of Board's name<br>
-			(1) The Board to Update :
+			(1) The Board to Update the name:
 			<select name="boardNo" id="boardNo" style="width: 300px;" onchange="updateBoardCategoryNo();">
 				<c:forEach var="BoardListDTO" items="${BoardList }">
 					<option value="${BoardListDTO.boardNo }" data-category="${BoardListDTO.boardCategoryNo }">
@@ -343,11 +340,9 @@ body {
             <br>
             <!-- boardCategoryNo 값을 동적으로 설정 -->
             <input type="hidden" id="boardCategoryNo1" name="boardCategoryNo" value="">
-            (2) The Board to edit
+            (2) The New Name of the board : 
             <input type="text" id="boardName" name="boardName" style="width: 300px;">
-            <button class="btn btn-warning btn-sm" onClick="changeBoardName();">
-				edit
-			</button>
+            <button class="btn btn-warning btn-sm" onClick="changeBoardName();">Edit</button>
 			</form>
 			<script>
 				function updateBoardCategoryNo() {
@@ -372,8 +367,8 @@ body {
 
 			<form id="categoryDTOtoChange" method="post" style="padding-top: 20px; padding-bottom: 10px;">
 				4) The Change of Category<br>
-				(1) Selection of Board:
-				<select id="boardNo2" name="boardNo" style="width: 300px;" onchange="updateBoardName();">
+				(1) The board to change the category :
+				<select id="boardNoToChangeCategory" name="boardNo" style="width: 300px;" onchange="updateBoardName();">
 					<c:forEach var="BoardListDTO" items="${BoardList }">
 						<option value="${BoardListDTO.boardNo }" data-name="${BoardListDTO.boardName}">
 							${BoardListDTO.boardNo }-${BoardListDTO.boardName }
@@ -381,9 +376,9 @@ body {
 					</c:forEach>
 				</select>
 				<br>
-				<!-- 이름을 동적으로 설정 -->
-				<input type="hidden" id="boardName2" name="boardName" value="">
-				(2) Select the category you want to change
+				<!-- 이름을 동적으로 설정 Setting name dynamically -->
+				<input type="hidden" id="boardNameToUpdate" name="boardName" value="">
+				(2) The new Category to move to : 
 				<select name="boardCategoryNo" style="width: 300px;">
 					<c:forEach var="CategoryListDTO" items="${CategoryList }">
 						<option value="${CategoryListDTO.boardCategoryNo }">${CategoryListDTO.boardCategoryName }</option>
@@ -393,18 +388,17 @@ body {
 					Change the category of the board
 				</button>
 				<br>
+				<font color="red">Please, select the category you want the board to move into. </font>
 			</form>
 		<script>
 		function updateBoardName() {
-		    var selectedOption = document.getElementById("boardNo2").selectedOptions[0];
+		    var selectedOption = document.getElementById("boardNoToChangeCategory").selectedOptions[0];
 		    var boardName = selectedOption.getAttribute("data-name");
-		    document.getElementById("boardName2").value = boardName;
-		    console.log("선택된 게시판 이름 무엇입니깤ㅋ:", boardName);
+		    document.getElementById("boardNameToUpdate").value = boardName;
 		}
 		</script>
 	</div>
 </div>
-<!-- Bottom -->
 <c:import url="/WEB-INF/view/include/bottomInfo.jsp" />
 </body>
 </html>

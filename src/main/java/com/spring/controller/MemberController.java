@@ -62,10 +62,14 @@ public class MemberController {
 
 		// 사용가능
 		if (result == null) {
+			
 			return "available";
+
 		// 사용불가
 		} else {
+
 			return "unavailable";
+
 		}
 	}
 
@@ -141,13 +145,13 @@ public class MemberController {
 		return memberDTOAfter;
 	}
 
-	// 3. 1) 로그인 페이지로 입장
+	// 3. 1) 로그인 페이지로 입장 (Going to the Sign-in Page.)
 	@RequestMapping("/signIn")
 	public String signIn() {
 		return "member/signIn";
 	}
 
-	// 5. 2) 로그인버튼을 누르고 로그인성공하기.
+	// 3. 2) 로그인 버튼을 누르고 로그인 성공
 	@PostMapping("/signInProcess")
 	public void signInProcess
 	(HttpServletRequest request, HttpServletResponse response, MemberDTO tmpSignInMemberDTO) throws IOException {
@@ -160,10 +164,10 @@ public class MemberController {
 
 			response.getWriter().write("loginSuccess");
 
-		// 회원이 현재 일시정지
+		// 회원이 현재 일시정지된 상태인 경우
 		} else if(signInMemberDTO.getAccountStatus().equalsIgnoreCase("suspend") && (signInMemberDTO.isSignIn() == false)) {	
 			
-			response.getWriter().write("suspend"+signInMemberDTO.getSuspensionEndDate());
+			response.getWriter().write("Sign-in will be suspended until "+signInMemberDTO.getSuspensionEndDate());
 
 		// 이것은 로그인 실패
 		} else if (signInMemberDTO.isSignIn() == false) {

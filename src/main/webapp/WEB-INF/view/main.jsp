@@ -28,7 +28,7 @@
 	font-family: 'Single Day', cursive;
 }
 body {
-	background-image: url(/GoroGoroCommunity/image/bottom-bg.jpg);
+	background-image: url(http://localhost:8080/GoroGoroCommunity/image/bottom-bg.jpg);
 	background-repeat: no-repeat;
 	background-position: center bottom;
 	background-attachment: fixed;
@@ -64,8 +64,8 @@ thead {
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="card-body">
-					<div>
-						<h3>Please Sign in as administrator(ID: admin@gorogoro.com). </h3>
+					<div> ${root }
+						<h3>Please Sign in as administrator(ID: admin@gorogoro.com). ${root }</h3>
 						<p class="text-center" style="margin-bottom: 20px">
 							▶please, Sign in with the administrator ID(<strong>admin@gorogoro.com</strong>), 
 							Password(<strong>1111</strong>)<br> 

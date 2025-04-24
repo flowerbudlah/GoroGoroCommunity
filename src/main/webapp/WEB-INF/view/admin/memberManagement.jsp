@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>For the Administrator Only</title>
-<!-- Bootstrap CDN -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -132,7 +131,7 @@ td{text-align:center; border: 1px solid black;}
 <!-- The Menu -->
 <c:import url="/WEB-INF/view/include/topMenu.jsp"/>
 <article class="slider">
-	<img src="${root }image/yamamotoshinji_sapporo_clockTower.jpg">
+	<img src="${root }image/candy05.jpg">
 </article>
 <div style="padding-top:50px; padding-bottom:100px">
 <div class="container">
@@ -184,8 +183,7 @@ td{text-align:center; border: 1px solid black;}
 				<td style="text-align: center;">
 			 <c:choose>
 					<c:when test="${allMemberList.accountStatus eq 'suspend'}" >
-						Sign-In suspended until
-						<fmt:formatDate pattern="dd(E) MM yyyy hh:mm:ss" value="${allMemberList.suspensionEndDate }"/>
+						Sign-In suspended until <fmt:formatDate pattern="dd(E) MM yyyy hh:mm:ss" value="${allMemberList.suspensionEndDate }"/>
 					</c:when>
 					<c:otherwise>
 						Sign in available

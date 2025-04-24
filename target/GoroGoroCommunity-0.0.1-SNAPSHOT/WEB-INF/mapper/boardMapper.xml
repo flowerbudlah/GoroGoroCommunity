@@ -6,7 +6,7 @@
 	<!-- 1. 1) 메인페이지로 간다.(with 글 목록) <select id="goMain" parameterType="java.lang.Integer" 
 		resultType="com.spring.dto.PostDTO"> select f.postNo, f.title, f.content, 
 		f.writer, f.regDate, f.viewCount, f.sameThinking, f.boardNo, f.imageFileName, 
-		(select count(*) from reply where postNo = f.postNo) as replyCount from freeBoard 
+		(select count(*) from reply where postNo = f.postNo) as replyCount from freeboard 
 		f, members m where (f.writer = m.nick) and f.boardNo = #{boardNo} order by 
 		f.postNo desc </select> -->
 
@@ -56,7 +56,7 @@
 	<!-- 1. 4) 게시글 검색후, "검색결과 수" 페이징 작업 -->
 	<select id="searchCount" parameterType="com.spring.dto.PostDTO" resultType="java.lang.Integer">
 		select count(*)
-		from freeBoard
+		from freeboard
 		where boardNo = #{boardNo} and
 		<if test="type!=null and type == 'title'">
 			title like CONCAT('%',#{keyword},'%')
@@ -75,7 +75,7 @@
 
 	<!-- 2. 글쓰기 Create(이미지 파일 첨부기능포함) -->
 	<insert id="writeProcess" parameterType="com.spring.dto.PostDTO" useGeneratedKeys="true" keyProperty="postNo">
-		insert into freeBoard(boardNo, title, content, writer, regDate, imageFileName)
+		insert into freeboard(boardNo, title, content, writer, regDate, imageFileName)
 		values(#{boardNo}, #{title}, #{content}, #{writer}, Now(), #{imageFileName})
 	</insert>
 
