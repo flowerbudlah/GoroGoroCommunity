@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:url var="root" value="${pageContext.request.contextPath }/" />
+<% request.setAttribute("root", request.getContextPath()); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,11 +39,11 @@ h1 {
 <body>
 <c:import url="/WEB-INF/view/include/topMenu.jsp" />
 <article class="slider">
-	<!-- <img src="http://localhost:8080/GoroGoroCommunity/image/candy01.png"> -->
-	<img src="https://gorogorocommunity-production.up.railway.app/image/candy01.png">
+	<img src="${root }/image/candy01.png">
+	
 </article>
 <!--Post List (게시글 리스트)-->
-<div class="container" style="margin-top: 50px; margin-bottom: 100px;">
+<div class="container" style="margin-top: 50px; margin-bottom: 50px;">
 	<div class="card-body">
 		<h1 class="card-title">${boardName }</h1>
 			<c:choose>
@@ -260,16 +260,17 @@ h1 {
 					</div>
 				</c:otherwise>
 			</c:choose>
-			<!-- 페이징 끝 -->
-		</div>
-		<!-- The Function of Searching -->
-		<form action="searchResult" name="search-form" autocomplete="off" class="text-center" style="margin-top: 30px;">
-			<select id="type" name="type">
-				<option value="titleANDcontent">Title + Content</option>
-				<option value="title">Title</option>
-				<option value="content">Content</option>
+		<!-- 페이징 끝 -->
+	</div>
+	<!-- The Function of Searching -->
+	<form action="searchResult" name="search-form" autocomplete="off" class="text-center" style="margin-top: 30px;">
+		<select id="type" name="type">
+			<option value="titleANDcontent">Title + Content</option>
+			<option value="title">Title</option>
+			<option value="content">Content</option>
 				<c:choose>
-					<%--익명 게시판인 경우, 작성자가 안나온다.  --%>
+					<%-- 익명 게시판인 경우, 작성자가 안나온다.
+					If it is an anonymous board, the author will not appear. --%>
 					<c:when test="${boardNo == 2 }"></c:when>
 					<c:otherwise>
 						<option value="writer">Writer</option>
@@ -278,9 +279,8 @@ h1 {
 			</select>
 			<input type="text" value="" name="keyword" id="keyword" required="required" />
 			<input type="hidden" id="boardNo" name="boardNo" value="${boardNo }" />
-			<button onclick="searchResult" class="btn btn-warning btn-sm">Search</button>
-		</form>
-<!-- 검색기능끝 -->
+		<button onclick="searchResult" class="btn btn-warning btn-sm">Search</button>
+	</form>
 </div>
 <c:import url="/WEB-INF/view/include/bottomInfo.jsp" />
 </body>

@@ -37,7 +37,7 @@ public class DeleteInterceptor implements HandlerInterceptor {
 			return true;
 			
 		} else {
-			
+
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + "/etc/notWriter");
 			return false;

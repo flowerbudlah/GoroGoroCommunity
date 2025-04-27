@@ -99,7 +99,7 @@ body {
 <body>
 <c:import url="/WEB-INF/view/include/topMenu.jsp" />
 <article class="slider">
-	<img src="${root }image/yamamotoshinji_sapporo_clockTower.jpg">
+	<img src="${root }image/Teletobee03.png">
 </article>
 	<div class="container" style="margin-top: 100px; margin-bottom: 100px">
 		<div class="row">

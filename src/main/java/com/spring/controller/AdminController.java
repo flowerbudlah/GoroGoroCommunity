@@ -243,7 +243,6 @@ public class AdminController {
 			BoardDTOinCategory.setBoardName(BoardDTOinCategory.getBoardName().trim()); 
 			// trim() 이 기능이 특징이 만약에 공란(" ", blank)만 나오면 트림기능 작동못함.
 
-			
 			// 해당 카테고리안의 게시판 이름이 중복되지 않았기에 사용가능한 경우
 			if (this.checkBoardNameInTheSameCategory(BoardDTOinCategory)) {
 
@@ -264,7 +263,6 @@ public class AdminController {
 
 		String result = adminService.checkBoardNameInTheSameCategory(boardNameAndCategoryNo);
 
-		
 		if (result == null) {
 			
 			// 사용가능
@@ -289,7 +287,8 @@ public class AdminController {
 	    	
 	        boardDTOinCategory.setBoardName(boardDTOinCategory.getBoardName().trim());
 
-	        // 입력된 게시판의 이름이 이미 같은 카테고리에 존재하지 않는다면 (If the name of the entered board does not exist in the same category)
+	        // 입력된 게시판의 이름이 이미 같은 카테고리에 존재하지 않는다면 
+	        // If the name of the entered board does not exist in the same category. 
 	        if (this.checkBoardNameInTheSameCategory(boardDTOinCategory)) {
 	        	
 	        	// 해당 이름 사용 가능 can use

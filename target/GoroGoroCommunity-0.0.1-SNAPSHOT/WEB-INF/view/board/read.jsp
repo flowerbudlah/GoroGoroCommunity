@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<c:set var="root" value="${pageContext.request.contextPath }/" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +49,13 @@
 						}
 					},
 				error    : function(request, status, error) {
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				
+					if(request.status == "200"){
+						alert("You cannot delete this post."); 
+					} else {
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+						
+					}
             	}
 			});
 		}
@@ -139,7 +146,9 @@
 	}
 
 	function removeReply(replyNo){
+		
 		var yn = confirm("Do you want to remove the comment ?");
+		
 		if(yn){
 			$.ajax({
 				url      : "removeReply",
@@ -191,7 +200,7 @@
 <body>
 <c:import url="/WEB-INF/view/include/topMenu.jsp" />
 <article class="slider">
-	<img src="/GoroGoroCommunity/image/candy02.jpg">
+	<img src="${root }/image/candy02.jpg">
 </article>
 <div class="container" style="margin-top: 100px; margin-bottom: 100px;">
 	<div class="row">
@@ -244,7 +253,7 @@
 								<c:forEach var="reply" items="${replyList}">
 									<li>
 										<div class="replyWiter">
-											Commenter : ${reply.replyWriter}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+											Commenter : ${reply.replyWriter}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 											Date and time of the comment : <fmt:formatDate value="${reply.replyRegDate}" pattern="yyyy-MM-dd hh:mm:ss" />
 											<c:choose>
 												<c:when test="${signInMemberDTO.nick == reply.replyWriter || signInMemberDTO.memberNo == 1 || signInMemberDTO.nick == readPostDTO.writer }">
@@ -287,7 +296,7 @@
 						<center>
 							<a href="read?postNo=${postNo}" onclick="javascript:like();">
 								<input type="hidden" id="postNo" name="postNo" value="${postNo}" />
-								<img src="/GoroGoroCommunity/image/sameFeeling.png" width="100" height="100">
+								<img src="${root }/image/sameFeeling.png" width="100" height="100">
 							</a>
 							<br><strong>★${readPostDTO.sameThinking }★</strong>
 						</center>
@@ -295,10 +304,10 @@
 					<div class="form-group">
 						<div class="text-right">
 							<button type="button" class="btn btn-primary btn-sm" onclick="javascript:goMain();">Back to List</button>
-							<a href="modify?postNo=${postNo }" class="btn btn-info btn-sm">Edit Post</a>
-							<button type="button" class="btn btn-secondary btn-sm" onclick="javascript:deletePost();">Delete Post</button>
+							<a href="modify?postNo=${postNo }" class="btn btn-info btn-sm">Edit</a>
+							<button type="button" class="btn btn-secondary btn-sm" onclick="javascript:deletePost();">Delete</button>
 							<c:choose>
-								<%--로그인을 한 회원에게만 보이는 게시글 신고버튼 The button to report for posts visible only to logged-in users --%>
+								<%-- 로그인을 한 회원에게만 보이는 게시글 신고버튼 The button to report for posts visible only to logged-in users --%>
 								<c:when test="${signInMemberDTO.signIn == true }">
 									<a href="report?postNo=${postNo }" class="btn btn-danger btn-sm">Report Post</a>
 								</c:when>

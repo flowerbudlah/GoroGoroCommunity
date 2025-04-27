@@ -60,10 +60,6 @@ public class AdminDAO {
 		return sqlSessionTemplate.update("admin.changeCategory", boardDTOinCategory);
 	}
 
-	public String checkNameInCategory(BoardDTO boardDTOinCategory) {
-		return sqlSessionTemplate.selectOne("admin.checkNameInCategory", boardDTOinCategory);
-	}
-
 	// 2. 1) 회원목록 가져오기
 	public List<MemberDTO> takeMemberList() {
 		return sqlSessionTemplate.selectList("admin.takeMemberList");
@@ -97,6 +93,16 @@ public class AdminDAO {
 	// 2. 7) 특정회원(닉네임으로 검색)에 대한 로그인 실시간 기록 가져오기
 	public List<LoginRecordDTO> takeLoginRecord(String nick) {
 		return sqlSessionTemplate.selectList("admin.takeLoginRecord", nick);
+	}
+	
+	// 2. 8) 회원일시정지 시키기 
+	public int makeIdSuspend(String email) {
+		return sqlSessionTemplate.update("admin.makeIdSuspend", email);
+	}
+
+	// 2. 9) 일시정지된 회원을 살리기, 활성화시키기
+	public int makeIdActive(String email) {
+		return sqlSessionTemplate.update("admin.makeIdActive", email);
 	}
 
 	// 3. 1) 관리자가 해당 신고글에 댓글 답변다는 것
@@ -134,16 +140,6 @@ public class AdminDAO {
 	// 3. 7) 해당 글이 이미 신고되어 유효한 경고(flag)를 받은경우인지 체크
 	public String checkFlagedAlready(int postNo) {
 		return sqlSessionTemplate.selectOne("admin.checkFlagedAlready", postNo);
-	}
-
-	// 회원일시정지 시키기 
-	public int makeIdSuspend(String email) {
-		return sqlSessionTemplate.update("admin.makeIdSuspend", email);
-	}
-
-	// 일시정지된 회원을 살리기, 활성화시키기
-	public int makeIdActive(String email) {
-		return sqlSessionTemplate.update("admin.makeIdActive", email);
 	}
 
 }

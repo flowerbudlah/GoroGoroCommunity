@@ -87,7 +87,8 @@ function searchList(){
 	}
 
 	function makeIdActive(email){
-		var yn = confirm(" ");
+		
+		var yn = confirm("Do you want to make this ID(Email) activate?");
 		
 		if (yn) {
 			
@@ -97,11 +98,16 @@ function searchList(){
 			data	 : { email : email },
 			dataType : "JSON",
 			success	 : function(obj) {
-						if (obj != null && obj.result === "successOfmakingActive") {
-						alert("Do you want to make This ID(Email) Activate?(Cancel Pause)");
-						location.reload();
+				
+				if (obj != null && obj.result === "successOfmakingActive") {
+
+					alert("This user can user sign-in from now on.");
+					location.reload();
+
 				} else {
-					alert("This ID activation was failed.");
+
+					alert("Sorry, I have made This ID not activate.");
+
 				}
 			},
 			error : function(request, status, error) {
