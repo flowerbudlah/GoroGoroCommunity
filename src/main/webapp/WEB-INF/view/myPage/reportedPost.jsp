@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>신고내용 읽기</title>
+<title>Reading the report </title>
 <link rel="icon" type="image/x-icon" href="image/favicon.png">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -144,8 +144,8 @@
 	                data     : formData,
 	                cache    : false,
 	                async    : true,
-	                contentType: false, //이것을 붙이고 나서 업로드가 된것이다. 
-	                processData: false, // 이것을 붙이고 업로드가 되었다. 
+	                contentType: false,
+	                processData: false,
 	                type     : "POST",    
 	                success  : 
 	                	function(obj) { 
@@ -169,8 +169,7 @@
 	                error: function(request,status,error){
 	                	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 	                }
-				}) //아작스 
-			
+				})
 		}
 	}
 </script>
@@ -196,14 +195,11 @@
 </style>
 </head>
 <body>
-<!-- 상단 메뉴 부분 -->
 <c:import url="/WEB-INF/view/include/topMenu.jsp" />
-<!-- 그 게시판 윗 부분 그림-->
 <article class="slider"><img src="${root }image/candy03.jpg"></article>
-	<!-- 본문 -->
-	<div class="container" style="margin-top: 100px; margin-bottom: 100px;">
-		<div class="row">
-			<div class="col-sm-3"></div>
+<div class="container" style="margin-top: 100px; margin-bottom: 100px;">
+	<div class="row">
+		<div class="col-sm-3"></div>
 			<div class="col-sm-7">
 				<div class="card shadow-none">
 					<div class="card-body">
@@ -277,14 +273,12 @@
 							</c:when>
 							<c:otherwise></c:otherwise>
 						</c:choose>
-
 					</div>
-					<!-- <div class="card-body"> -->
 					<div class="form-group">
 						<div class="text-right">
 							<button type="button" class="btn btn-primary btn-sm" onclick="javascript:history.back();">이전으로</button>
 							<c:choose>
-							<%--신고철회, 신고내용수정하기 신고를 한 사람만 볼수있게 한다. --%>
+								<%--신고철회, 신고내용수정하기 신고를 한 사람만 볼수있게 한다. --%>
 								<c:when test="${readReportDTO.reporter == signInMemberDTO.nick }">
 									<a href="modify?reportNo=${reportNo }" class="btn btn-info btn-sm">신고내용 수정하기</a>
 									<button class="btn btn-secondary btn-sm" onclick="javascript:deleteReportDTO();">신고철회</button>
@@ -292,26 +286,24 @@
 								<c:otherwise></c:otherwise>
 							</c:choose>
 							<c:choose>
-							<%--신고승낙버튼은 관리자만 볼수있게 한다.--%>	
+								<%--신고승낙버튼은 관리자만 볼수있게 한다.--%>	
 								<c:when test="${signInMemberDTO.memberNo == 1}">
-								<button type="button" class="btn btn-warning btn-sm" onclick="javascript:accept();">신고승낙</button>&emsp;
-								<form id="FlagDTO" name="FlagDTO">
-									<input type="hidden" name="postNo" id="postNo" value="${readReportDTO.postNo}">
-									<input type="hidden" id="reportNo" name="reportNo" value="${readReportDTO.reportNo}" />
-									<input type="hidden" id="reporter" name="reporter" value="${readReportDTO.reporter}" />
-								</form>
+									<button type="button" class="btn btn-warning btn-sm" onclick="javascript:accept();">신고승낙</button>&emsp;
+									<form id="FlagDTO" name="FlagDTO">
+										<input type="hidden" name="postNo" id="postNo" value="${readReportDTO.postNo}">
+										<input type="hidden" id="reportNo" name="reportNo" value="${readReportDTO.reportNo}" />
+										<input type="hidden" id="reporter" name="reporter" value="${readReportDTO.reporter}" />
+									</form>
 								</c:when>
 								<c:otherwise></c:otherwise>
 							</c:choose>
-						
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-3"></div>
-	</div>
-<!-- 하단 정보 -->
+	<div class="col-sm-3"></div>
+</div>
 <c:import url="/WEB-INF/view/include/bottomInfo.jsp" />
 </body>
 </html>

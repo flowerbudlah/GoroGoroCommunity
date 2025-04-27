@@ -4,18 +4,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.spring.dto.PageDTO;
 import com.spring.dto.PostDTO;
 import com.spring.dto.ReplyDTO;
@@ -33,7 +29,7 @@ public class BoardController {
 	@Autowired
 	private ReplyService replyService;
 
-	// 1. 게시판 메인 페이지로 이동 (Going to the Main Page of Board)
+	// 1. 1) 게시판 메인 페이지로 이동 (Going to the Main Page of Board)
 	@RequestMapping("/main")
 	public String main(
 			@RequestParam("boardNo") int boardNo, 
@@ -58,7 +54,7 @@ public class BoardController {
 		return "board/main";
 	}
 
-	// 2. 게시판 메인 페이지에서 특정 게시물을 검색 (Searching for the specific posts)
+	// 1. 1) 게시판 메인 페이지에서 특정 게시물을 검색 (Searching for the specific posts)
 	@RequestMapping("/searchResult")
 	public String searchResult(
 			@RequestParam("boardNo") int boardNo, 
@@ -121,7 +117,14 @@ public class BoardController {
 		return "board/modify";
 	}
 
-	// 3. 2) 게시글 수정 완료 (Making the post)
+	// 3. 2) 이미지 첨부파일 삭제 (Removing attached image file in the modification page.)
+	@RequestMapping("/deleteImageFile")
+	public @ResponseBody PostDTO deleteImageFile(PostDTO imageFilePostDTO) {
+		PostDTO afterDeletingImageFile = boardService.deleteImageFile(imageFilePostDTO);
+		return afterDeletingImageFile;
+	}
+
+	// 3. 3) 게시글 수정 완료 (Completing the modification of post)
 	@RequestMapping("/modifyProcess")
 	public @ResponseBody PostDTO modifyProcess(HttpServletRequest request, HttpServletResponse response, PostDTO modifyPostDTO, MultipartFile imageFile) throws Exception {
 		
@@ -134,30 +137,21 @@ public class BoardController {
 	@RequestMapping("/read")
 	public String read(@RequestParam("postNo") int postNo, @ModelAttribute("readPostDTO") PostDTO postDTO, Model model) {
 
-		PostDTO readPostDTO = boardService.read(postNo);
-
+		PostDTO readPostDTO = boardService.read(postNo); 
 		model.addAttribute("readPostDTO", readPostDTO);
 		model.addAttribute("postNo", postNo);
 
-		// 조회수 증가
+		// 조회수 증가 Increasing views
 		boardService.increasingViewCount(postNo); 
 
-		// 댓글출력
+		// 대글 출력 Printing the comment
 		List<ReplyDTO> replyList = replyService.replyList(postNo);
 		model.addAttribute("replyList", replyList);
 
 		return "board/read";
-
 	}
 
-	// 5. 글삭제 (Deleting)
-	@RequestMapping("/deletePost")
-	public @ResponseBody PostDTO deleteBoard(HttpServletRequest request, HttpServletResponse response, int postNo) throws Exception {
-		PostDTO postDTO = boardService.deletePost(postNo);
-		return postDTO;
-	}
-
-	// 6. 1) 댓글등록
+	// 5. 1) 댓글 등록 Commenting
 	@RequestMapping("/writeReplyProcess")
 	public @ResponseBody ReplyDTO writeReplyProcess(ReplyDTO writeReplyDTO) {
 
@@ -165,7 +159,7 @@ public class BoardController {
 		return ReplyDTO;
 	}
 
-	// 6. 2) 댓글삭제
+	// 5. 2) 댓글삭제 Deleting the comment
 	@RequestMapping("/removeReply")
 	public @ResponseBody ReplyDTO removeReply(int replyNo) {
 
@@ -173,32 +167,32 @@ public class BoardController {
 		return ReplyDTO;
 	}
 
-	// 7. 이미지 첨부파일 삭제
-	@RequestMapping("/deleteImageFile")
-	public @ResponseBody PostDTO deleteImageFile(PostDTO imageFilePostDTO) {
-		PostDTO afterDeletingImageFile = boardService.deleteImageFile(imageFilePostDTO);
-		return afterDeletingImageFile;
-	}
-
-	// 8. 좋아요(추천) recommend
+	// 6. 좋아요(추천) recommend
 	@RequestMapping("/like")
 	public @ResponseBody PostDTO like(int postNo) throws Exception {
 		PostDTO likePostDTO = boardService.like(postNo);
 		return likePostDTO;
 	}
 
-	// 9. 1) 게시글 신고 페이지로 이동 (Going to the post's report page)
+	// 7. 1) 게시글 신고 페이지로 이동 (Going to the post's report page)
 	@RequestMapping("/report")
 	public String report(@RequestParam("postNo") int postNo, Model model) {
 		model.addAttribute("postNo", postNo);
 		return "board/report";
 	}
 
-	// 9. 2) 게시글 신고완료 (completing a Post's report)
+	// 7. 2) 게시글 신고완료 (completing a Post's report)
 	@RequestMapping("/reportProcess")
 	public @ResponseBody ReportDTO reportProcess(ReportDTO submitReportDTO, MultipartFile imageFile) throws Exception {
 		ReportDTO reportDTO = boardService.reportProcess(submitReportDTO);
 		return reportDTO;
+	}
+	
+	// 8. 글삭제 (Deleting the post)
+	@RequestMapping("/deletePost")
+	public @ResponseBody PostDTO deleteBoard(HttpServletRequest request, HttpServletResponse response, int postNo) throws Exception {
+		PostDTO postDTO = boardService.deletePost(postNo);
+		return postDTO;
 	}
 
 }

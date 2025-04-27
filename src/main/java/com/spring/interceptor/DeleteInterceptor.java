@@ -20,23 +20,28 @@ public class DeleteInterceptor implements HandlerInterceptor {
 	@Autowired
 	private BoardService boardService;
 
-	// 로그인한 사람과 작성한 사람이 같은지 검사하기 --이번 Interceptor는 삭제할 때만 반응하도록 함
+	// Checking if the person who signed in and the person who wrote the post are the same, 
+	// This Interceptor will only react when deleting a post.
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 
-		System.out.println("=======================================================================");
 		int postNo = Integer.parseInt(request.getParameter("postNo"));
 		PostDTO tmpPostDTO = boardService.read(postNo);
 
+		// 글쓴사람이랑 로그인을 한 사람이 같으면, 또는 관리자라면 
+		// If the person who logged in is the writer or administrator
 		if ((tmpPostDTO.getWriter().equalsIgnoreCase(signInMemberDTO.getNick()))
 				|| (signInMemberDTO.getMemberNo() == 1)) {
-			// 글쓴사람이랑 로그인을 한 사람이 같으면, 또는 관리자라면
+			
 			return true;
+			
 		} else {
+			
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + "/etc/notWriter");
 			return false;
+		
 		}
 
 	}

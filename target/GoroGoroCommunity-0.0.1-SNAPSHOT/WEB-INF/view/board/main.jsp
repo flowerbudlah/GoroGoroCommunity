@@ -73,11 +73,11 @@ h1 {
 										<c:when test="${boardNo == 1 }">[${boardName }]</c:when>
 										<c:otherwise></c:otherwise>
 									</c:choose>${postDTO.title }
-									<!-- 업로드 파일이 있다면 If There is a Uploaded file. -->
+									<!-- If There is a Uploaded file. -->
 									<c:if test="${postDTO.imageFileName != '' }">
 										<img src="/GoroGoroCommunity/image/uploadingPhoto.png" width=20px;>
 									</c:if>
-									 <!-- 댓글 수 "Number of comments (if any)"-->
+									 <!-- Number of comments (if any) -->
 									 <font color="red">[${postDTO.replyCount }]</font>
 								</a>
 							</td>
@@ -118,9 +118,11 @@ h1 {
 								<c:choose>
 									<c:when test="${postDTO.boardNo == 2 }">Anonymous</c:when>
 									<c:otherwise>${postDTO.writer}</c:otherwise>
-								</c:choose></td>
-							<td class="text-center d-none d-md-table-cell"><fmt:formatDate
-									value="${postDTO.regDate }" pattern="yyyy-MM-dd" /></td>
+								</c:choose>
+							</td>
+							<td class="text-center d-none d-md-table-cell">
+								<fmt:formatDate value="${postDTO.regDate }" pattern="yyyy-MM-dd" />
+							</td>
 							<td class="text-center d-none d-md-table-cell">${postDTO.viewCount }</td>
 							<td class="text-center d-none d-md-table-cell">${postDTO.sameThinking }</td>
 						</tr>
@@ -180,9 +182,8 @@ h1 {
 								end="${searchListPageDTO.max }">
 								<c:choose>
 									<c:when test="${idx == searchListPageDTO.currentPage }">
-										<li class="page-item active"><a
-											href="searchResult?boardNo=${boardNo}&type=${type }&keyword=${keyword }&page=${idx}"
-											class="page-link">${idx}</a> <!-- http://localhost:8090/GoroGoroCommunity/board/      main?boardNo=2&page=1 -->
+										<li class="page-item active">
+											<a href="searchResult?boardNo=${boardNo}&type=${type }&keyword=${keyword }&page=${idx}" class="page-link">${idx}</a>
 										</li>
 									</c:when>
 									<c:otherwise>
@@ -194,8 +195,7 @@ h1 {
 							</c:forEach>
 							<!-- 다음 -->
 							<c:choose>
-								<c:when
-									test="${searchListPageDTO.max >= searchListPageDTO.pageCount }">
+								<c:when test="${searchListPageDTO.max >= searchListPageDTO.pageCount }">
 									<!--맨 마지막 페이지인 경우에는 다음 버튼이 안 보이도록 함 (최대페이지가 전체페이지개수보다 크면 다음이 안 보이도록 함) -->
 									<li class="page-item disabled">
 										<a href="#" class="page-link">Next</a>
@@ -217,18 +217,18 @@ h1 {
 							<!-- 이전 -->
 							<c:choose>
 								<c:when test="${pageDTO.prePage <= 0 }">
-									<li class="page-item disabled"><a href="#"
-										class="page-link">Prev</a></li>
+									<li class="page-item disabled">
+										<a href="#" class="page-link">Prev</a>
+									</li>
 								</c:when>
 								<c:otherwise>
-									<li class="page-item"><a
-										href="main?boardNo=${boardNo}&page=${pageDTO.prePage}"
-										class="page-link">Prev</a></li>
+									<li class="page-item">
+										<a href="main?boardNo=${boardNo}&page=${pageDTO.prePage}" class="page-link">Prev</a>
+									</li>
 								</c:otherwise>
 							</c:choose>
 							<!-- 1 2 3 4 5 6 7 8 9 10 -->
-							<c:forEach var="idx" begin="${pageDTO.min }"
-								end="${pageDTO.max }">
+							<c:forEach var="idx" begin="${pageDTO.min }" end="${pageDTO.max }">
 								<c:choose>
 									<c:when test="${idx == pageDTO.currentPage }">
 										<li class="page-item active"><a
@@ -236,8 +236,8 @@ h1 {
 										</li>
 									</c:when>
 									<c:otherwise>
-										<li class="page-item"><a
-											href="main?boardNo=${boardNo}&page=${idx}" class="page-link">${idx}</a>
+										<li class="page-item">
+											<a href="main?boardNo=${boardNo}&page=${idx}" class="page-link">${idx}</a>
 										</li>
 									</c:otherwise>
 								</c:choose>
@@ -262,25 +262,24 @@ h1 {
 			</c:choose>
 			<!-- 페이징 끝 -->
 		</div>
-		<!-- 검색 기능 -->
-		<form action="searchResult" name="search-form" autocomplete="off"
-			class="text-center" style="margin-top: 30px;">
+		<!-- The Function of Searching -->
+		<form action="searchResult" name="search-form" autocomplete="off" class="text-center" style="margin-top: 30px;">
 			<select id="type" name="type">
 				<option value="titleANDcontent">Title + Content</option>
 				<option value="title">Title</option>
 				<option value="content">Content</option>
 				<c:choose>
-					<c:when test="${boardNo == 2 }">
 					<%--익명 게시판인 경우, 작성자가 안나온다.  --%>
-					</c:when>
+					<c:when test="${boardNo == 2 }"></c:when>
 					<c:otherwise>
 						<option value="writer">Writer</option>
 					</c:otherwise>
 				</c:choose>
 			</select>
-			<input type="text" value="" name="keyword" id="keyword" required="required" /> <input type="hidden" id="boardNo" name="boardNo" value="${boardNo }" />
+			<input type="text" value="" name="keyword" id="keyword" required="required" />
+			<input type="hidden" id="boardNo" name="boardNo" value="${boardNo }" />
 			<button onclick="searchResult" class="btn btn-warning btn-sm">Search</button>
-	</form>
+		</form>
 <!-- 검색기능끝 -->
 </div>
 <c:import url="/WEB-INF/view/include/bottomInfo.jsp" />

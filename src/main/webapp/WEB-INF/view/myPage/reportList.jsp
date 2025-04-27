@@ -29,7 +29,6 @@ thead{background-color: gold; }
 		<div class="card-body">	
 			<h4 class="card-title"><strong>My Reports List</strong></h4>
 			<h5>This Page shows The List of Posts that You(${signInMemberDTO.nick}) have reported to <strong>Administrator.</strong></h5>
-		
 			<c:choose>
 				<c:when test="${searchReportCount == null}"></c:when>
 				<c:otherwise>총 ${searchReportCount}개의 신고 건이 검색되었습니다. </c:otherwise>

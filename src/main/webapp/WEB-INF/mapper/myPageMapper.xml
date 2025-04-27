@@ -68,9 +68,6 @@
 			postNo like CONCAT('%',#{keyword},'%') 	
 		</if>
 	</select>
-	
-	
-	
 
 	<!-- 3. 신고내역 자체를 삭제(Deleting)한다.(이 신고철회는 신고자만 가능하다. ) -->
 	<delete id="deleteReportDTO" parameterType="java.lang.Integer">
@@ -78,8 +75,7 @@
     	from reportboard 
     	where reportNo = #{reportNo}
     </delete> 
-    
-    
+
     <!-- 6. 1) 내가 쓴 글 목록(in 마이페이지) -->
 	<select id="goMyPosts" parameterType="java.lang.Integer" resultType="com.spring.dto.PostDTO">
 		select f.postNo, f.title, f.content, f.writer, f.regDate, f.viewCount, f.sameThinking, f.boardNo, f.imageFileName, 

@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 게시판 -->
 <mapper namespace="board">
-
-	<!-- 1. 1) 메인페이지로 간다.(with 글 목록) <select id="goMain" parameterType="java.lang.Integer" 
-		resultType="com.spring.dto.PostDTO"> select f.postNo, f.title, f.content, 
-		f.writer, f.regDate, f.viewCount, f.sameThinking, f.boardNo, f.imageFileName, 
-		(select count(*) from reply where postNo = f.postNo) as replyCount from freeboard 
-		f, members m where (f.writer = m.nick) and f.boardNo = #{boardNo} order by 
-		f.postNo desc </select> -->
 
 	<!-- 1. 1) 메인페이지로 간다.(with 글 목록) -->
 	<select id="goMain" parameterType="java.lang.Integer" resultType="com.spring.dto.PostDTO">
@@ -80,17 +72,11 @@
 	</insert>
 
 	<!-- 3. 1) 글 하나 읽기 Reading -->
-	<select id="read" parameterType="java.lang.Integer"
-		resultType="com.spring.dto.PostDTO">
-		select postNo, title,
-		content, writer, regDate, viewCount,
-		sameThinking, boardNo,
-		imageFileName,
-		(select count(*) from reply where
-		postNo = f.postNo) as replyCount
+	<select id="read" parameterType="java.lang.Integer" resultType="com.spring.dto.PostDTO">
+		select postNo, title, content, writer, regDate, viewCount, sameThinking, boardNo,
+		imageFileName, (select count(*) from reply where postNo = f.postNo) as replyCount
 		from freeboard f
-		where postNo =
-		#{postNo}
+		where postNo = #{postNo}
 	</select>
 
 	<!-- 3. 2) 조회수 증가 -->

@@ -53,6 +53,10 @@
 .navbar-collapse {
 	font-family: 'Single Day', cursive;
 }
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
 </style>
 <script type="text/javascript">
 	function signOut() {
@@ -170,7 +174,7 @@
 					</li>
 					&emsp;
 					<li class="nav-item">
-						<a href="${root }member/signUp" style="color: black;">Sign Up</a>
+						<a href="${root }member/signUp" style="color: black;">Sign Up For Free</a>
 					</li>
 				</c:otherwise>
 			</c:choose>

@@ -28,7 +28,7 @@ public class MemberDAO {
 		return sqlSessionTemplate.selectOne("member.checkNick", nick);
 	}
 
-	// 2. 1) 로그인 (Log In or Sign In)
+	// 2. 1) 로그인 (Sign In)
 	public MemberDTO signIn(MemberDTO tmpSignInMemberDTO) {
 		return sqlSessionTemplate.selectOne("member.signIn", tmpSignInMemberDTO);
 	}
@@ -50,8 +50,8 @@ public class MemberDAO {
 	}
 
 	// 4. 회원 본인이 원해서 회원탈퇴
-	public int leave(MemberDTO MemberDTOIsLeaving) {
-		return sqlSessionTemplate.delete("member.leave", MemberDTOIsLeaving);
+	public int deleteAccount(MemberDTO memberDTOtodeleteAccount) {
+		return sqlSessionTemplate.delete("member.leave", memberDTOtodeleteAccount);
 	}
 
 	// 5. 1) 이메일(ID)을 분실했을경우, 사용하던 닉네임을 입력한 뒤에 질문을 보여준다.

@@ -29,6 +29,7 @@
 	</beans:bean>
 
 	<!-- 프로젝트에서 사용하는 정적 파일(이미지, 사운드, 동영상, js, css 등) 경로 설정하기 -->
+	<!-- Setting the path to static files (images, sounds, videos, js, css, etc.) used in the project -->
 	<resources mapping="/**" location="/resources/" />
 
 	<!-- properties 파일 내용을 사용할 수 있도록 Bean 등록 -->

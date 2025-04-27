@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>GoroGoro Community(ゴロゴロ)</title>
-<!-- Bootstrap CDN -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -16,59 +15,64 @@
 
 function findPasswords(){
 	
-	$.ajax(
-			{
+	$.ajax({
 			type: 'get',
 			url : '${root}member/findPassword',
 			data : $("form[name = toFindPasswords]").serialize(), 
 			success : 
 				function(result){
-					$('#findPasswords').empty(); 	//테이블 초기화
 					
-					if(result.length == 0){//검색결과가 전혀없는 경우 
+					// 테이블 초기화 Table initialization
+					$('#findPasswords').empty();
+					
+					// 검색결과가 전혀없는 경우 There is no search result 
+					if(result.length == 0){
 						
-						str="<img src='${root }image/banner/cryingPeko.jpg' width='100px;'><br>"; 
-						str+="입력하신 이메일의 회원정보가 없으니 다시 한번 확인하시고 입력해주세요!<br><br>"; 
-						str+="<a href='${root }member/findPasswords' class='btn btn-success btn-sm'>이전 페이지로 돌아가기</a>"; 
+						str="<img src='${root }image/banner/cryingPeko.jpg' width='50px;'><br>"; 
+						str+="Sorry, There is no user information for the email you entered.<br>Please check and enter it again!<br><br>"; 
+						str+="<a href='${root }member/findPasswords' class='btn btn-success btn-sm'>Back to previous page</a>"; 
 						$('#findPasswords').append(str);
 						
-					}else{
-						str="입력하신 이메일로 임시비밀번호가 발급되었습니다. 해당 이메일을 확인해주세요!";
+					} else {
+						str="A temporary password has been issued to the email address you entered.<br>Please, Check the e-mail!";
 						$('#findPasswords').append(str);
 					}
-			}  //function(result)
-		}
-	) //ajax의 끝
-}//function의 끝	
-
+				}
+			})
+}
 </script>
 <style>
-.slider img{ display:block; width:100%; max-width:100%; height:300px; }
-body{  
-background-image: url(http://localhost:8090/GoroGoroCommunity/image/bottom-bg.jpg); 
-background-repeat: no-repeat; background-position: center bottom; background-attachment: fixed;   }
+.slider img {
+	display:block;
+	width:100%;
+	max-width:100%;
+	height:300px; 
+}
+body{
+	background-image: url(http://localhost:8080/GoroGoroCommunity/image/bottom-bg.jpg);
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	background-attachment: fixed;
+}
 </style>
 </head>
 <body>
-<!-- 메뉴부분 -->
 <c:import url="/WEB-INF/view/include/topMenu.jsp"/>
-<!--가운데 그림-->
-<article class="slider"><img src="${root }image/candy03.jpg"></article>
-<!-- 로그인 폼 -->
-<div class="container" style="margin-top:50px; margin-bottom:50px; ">
+<article class="slider">
+	<img src="${root }image/candy03.jpg">
+</article>
+<div class="container" style="margin-top:60px; margin-bottom:60px; ">
 	<div class="row">
-		<div class="col-lg-3 col-sm-7"></div>
-			<div class="card-body" id="findPasswords">
+	<div class="col-lg-4 col-sm-6"></div>
+		<div class="card-body" id="findPasswords">
 			Do you have Forgotten your password?<br>
 			First, please enter the <strong>email</strong> that you entered when you sign in!
 			<form action="javascript:findPasswords()" name="toFindPasswords" autocomplete="off" style="margin-top:20px;">
 				<input type="email" id="email" name="email">
 				<button class="btn btn-info btn-sm">Submit</button>
 			</form>
-			</div>
 		</div>
 	</div>
-<div class="col-sm-3"></div>
-<!-- 하단 -->
+</div>
 <c:import url="/WEB-INF/view/include/bottomInfo.jsp" />
 </body>

@@ -159,11 +159,11 @@ public class MemberService {
 	}
 
 	// 4. 회원탈퇴하기(Delete)
-	public MemberDTO leave(MemberDTO memberDTOisLeaving) throws Exception {
+	public MemberDTO deleteAccount(MemberDTO memberDTOisLeaving) throws Exception {
 
 		MemberDTO memberDTO = new MemberDTO();
 
-		int leaveCount = memberDAO.leave(memberDTOisLeaving);
+		int leaveCount = memberDAO.deleteAccount(memberDTOisLeaving);
 
 		// 탈퇴 성공
 		if (leaveCount > 0) {

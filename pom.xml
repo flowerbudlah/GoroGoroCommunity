@@ -21,9 +21,10 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			<!-- <plugin> <artifactId>maven-war-plugin</artifactId> <version>3.2.3</version> 
+			<!-- 
+			<plugin> <artifactId>maven-war-plugin</artifactId> <version>3.2.3</version> 
 				<configuration> <warSourceDirectory>webapp</warSourceDirectory> </configuration> 
-				</plugin>
+			</plugin>
 			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -47,6 +48,12 @@
 	</build>
 	<!-- library version -->
 	<properties>
+	
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+
 		<javax.servlet-version>4.0.1</javax.servlet-version>
 		<javax.servlet.jsp-version>2.3.3</javax.servlet.jsp-version>
 		<javax.servlet.jsp.jstl-version>1.2</javax.servlet.jsp.jstl-version>
@@ -188,6 +195,22 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>5.2.9.RELEASE</version>
 		</dependency>
+		
+		<!-- Uploading a Image -->
+		<!-- HTTP 요청용 -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.13</version>
+		</dependency>
+
+		<!-- JSON 파싱용 -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20210307</version>
+		</dependency>
+
 
 	</dependencies>
 

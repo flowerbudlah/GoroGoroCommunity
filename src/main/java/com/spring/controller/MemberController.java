@@ -48,24 +48,22 @@ public class MemberController {
 	@Resource(name = "signInMemberDTO")
 	private MemberDTO signInMemberDTO;
 
-	// 1. 1) 회원가입 페이지로 이동
+	// 1. 1) 회원가입 페이지로 이동 Going to the Sign-up Page. 
 	@RequestMapping("/signUp")
 	public String signUp() {
 		return "member/signUp";
 	}
 
-	// 1. 2) 이메일(ID) 중복체크(in 회원가입 페이지)
+	// 1. 2) 이메일(ID) 중복체크(in 회원가입 페이지) Duplication Checking of ID
 	@RequestMapping("/checkEmail")
 	public @ResponseBody String checkEmail(String email) {
 
 		String result = memberService.checkEmail(email);
-
-		// 사용가능
+		
 		if (result == null) {
 			
 			return "available";
 
-		// 사용불가
 		} else {
 
 			return "unavailable";
@@ -73,22 +71,20 @@ public class MemberController {
 		}
 	}
 
-	// 1. 3) 닉네임 중복체크(in 회원가입 페이지)
+	// 1. 3) 닉네임 중복체크(in 회원가입 페이지) Duplication Checking of Nick
 	@RequestMapping("/checkNick")
 	public @ResponseBody String checkNick(String nick) {
 		String result = memberService.checkNick(nick);
 		
-		// 사용가능
 		if (result == null) {
 			return "available";
 		
-		// 사용불가
 		} else {
 			return "unavailable";
 		}
 	}
 
-	// 1. 4) 회원가입 완료버튼 누르고 회원가입 하기(in 회원가입 페이지)
+	// 1. 4) 회원가입 완료버튼 누르고 회원가입 하기(in 회원가입 페이지) Signing up after press the button of completing signing-up.  
 	@RequestMapping("/signUpProcess")
 	public @ResponseBody MemberDTO signUpProcess(MemberDTO signUpMemberDTO) {
 
@@ -97,7 +93,7 @@ public class MemberController {
 		return newMemberDTO;
 	}
 
-	// 2. 1) 회원정보 수정페이지로 이동
+	// 2. 1) 회원정보 수정페이지로 이동 Going to the modification of user's information.
 	@GetMapping("/modify")
 	public String modify(@ModelAttribute("modifyMemberDTO") MemberDTO modifyMemberDTO) {
 
@@ -106,7 +102,7 @@ public class MemberController {
 		return "member/modify";
 	}
 
-	// 2. 2) 닉네임 중복체크(at 회원정보수정 페이지)
+	// 2. 2) 닉네임 중복체크(in 회원정보수정 페이지) Duplication Checking of Nick
 	@RequestMapping("/checkNickInModify")
 	public @ResponseBody String checkNickInModify(String nick) {
 
@@ -121,7 +117,7 @@ public class MemberController {
 		// 사용하고 싶은 새로운 닉네임을 넣어봤더니 사용하고 있는 사람이 있는 경우
 		} else {
 			
-			// 새롭게 사용하고 싶은 닉네임으로 입력한 값 = 이미 현재 사용하고있는 닉네임인 경우  
+			// 새롭게 사용하고 싶은 닉네임으로 입력한 값 = 이미 내가 현재 사용하고있는 닉네임인 경우  
 			if (result.equalsIgnoreCase(signInMemberDTO.getNick())) {
 				
 				// 사용가능
@@ -136,7 +132,7 @@ public class MemberController {
 		}
 	}
 
-	// 2. 3) 회원정보수정 완료 버튼 누르고, 진짜 회원정보 수정이 이뤄지는 그 과정
+	// 2. 3) 회원정보수정 완료 버튼 누르고, 회원정보 수정이 이뤄지는 그 과정 The process of modifying user information after clicking the button. 
 	@RequestMapping("/modifyProcess")
 	public @ResponseBody MemberDTO modifyMemberDTO(MemberDTO modifyMemberDTO) {
 
@@ -167,7 +163,7 @@ public class MemberController {
 		// 회원이 현재 일시정지된 상태인 경우
 		} else if(signInMemberDTO.getAccountStatus().equalsIgnoreCase("suspend") && (signInMemberDTO.isSignIn() == false)) {	
 			
-			response.getWriter().write("Sign-in will be suspended until "+signInMemberDTO.getSuspensionEndDate());
+			response.getWriter().write("Sign-in will be suspended until "+ signInMemberDTO.getSuspensionEndDate());
 
 		// 이것은 로그인 실패
 		} else if (signInMemberDTO.isSignIn() == false) {
@@ -175,11 +171,10 @@ public class MemberController {
 			response.getWriter().write("loginFail");
 		}
 	}
-	
+
 	// 4. 로그아웃(Sign Out)
-	@ResponseBody
 	@RequestMapping("/signOut")
-	public void signOut(HttpSession session) {
+	public @ResponseBody void signOut(HttpSession session) {
 		
 		// 로그인 풀리고
 		signInMemberDTO.setSignIn(false); 
@@ -187,17 +182,17 @@ public class MemberController {
 		session.invalidate(); 
 	}
 
-	// 5. 1) 회원탈퇴 페이지로 이동
+	// 5. 1) 회원탈퇴 페이지로 이동 Going to membership withdrawal page
 	@RequestMapping("/getOut")
 	public String getOut() {
 		return "member/getOut";
 	}
 
-	// 5. 2) 회원본인이 원해서 회원탈퇴(by 아작스)
-	@RequestMapping("/leave")
-	public @ResponseBody MemberDTO leave(MemberDTO memberDTOisLeaving) throws Exception {
+	// 5. 2) 회원본인이 원해서 회원탈퇴(with 아작스) Account Deletion 
+	@RequestMapping("/DeleteAccount")
+	public @ResponseBody MemberDTO deleteAccount(MemberDTO memberDTOisLeaving) throws Exception {
 
-		MemberDTO memberDTO = memberService.leave(memberDTOisLeaving);
+		MemberDTO memberDTO = memberService.deleteAccount(memberDTOisLeaving);
 		return memberDTO;
 	}
 

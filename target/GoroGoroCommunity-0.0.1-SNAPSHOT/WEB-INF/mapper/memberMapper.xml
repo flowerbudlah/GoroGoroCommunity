@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="member">
 
 	<!-- 1. 1) 회원가입 -->
@@ -11,26 +10,20 @@
 
 	<!-- 1. 2) 회원가입시 이메일(ID) 중복체크 -->
 	<select id="checkEmail" parameterType="java.lang.String" resultType="java.lang.String">
-		select email 
-		from members
-		where email like CONCAT(#{email},'%')
+		select email from members where email like CONCAT(#{email},'%')
 	</select>
 
 	<!-- 1. 3) 회원가입시 대화명 중복체크 -->
 	<select id="checkNick" parameterType="java.lang.String" resultType="java.lang.String">
-		select nick
-		from members
-		where nick = #{nick}
+		select nick from members where nick = #{nick}
 	</select>
 
 	<!-- 2. 1) 로그인(Sign In) -->
 	<select id="signIn" parameterType="com.spring.dto.MemberDTO" resultType="com.spring.dto.MemberDTO">
-		select *
-		from members
-		where email = #{email} and passwords = #{passwords}
+		select * from members where email = #{email} and passwords = #{passwords}
 	</select>
 
-	<!-- 2. 2) 로그인을 할때마다 로그인 일시기록 -->
+	<!-- 2. 2) 로그인 일시기록 -->
 	<insert id="recordRealTimeLogin" parameterType="com.spring.dto.LoginRecordDTO" useGeneratedKeys="true" keyProperty="loginRecordNo">
 		insert into loginrecord(memberNo, email, nick, loginRecordRealTime)
 						value(#{memberNo}, #{email}, #{nick}, Now());
@@ -38,9 +31,7 @@
 
 	<!-- 3. 1) 회원정보를 수정하기 위해 수정대상 회원정보 가져오기 -->
 	<select id="takeMemberDTO" parameterType="java.lang.Integer" resultType="com.spring.dto.MemberDTO">
-		select *
-		from members
-		where memberNo = #{memberNo}
+		select * from members where memberNo = #{memberNo}
 	</select>
 
 	<!-- 3. 2) 회원정보수정하기 -->
@@ -51,40 +42,28 @@
 	</update>
 
 	<!-- 4. 회원탈퇴(회원본인의 비밀번호를 입력하여 탈퇴) -->
-	<delete id="leave" parameterType="com.spring.dto.MemberDTO">
-		delete
-		from members
-		where email= #{email} and passwords = #{passwords}
+	<delete id="deleteAccount" parameterType="com.spring.dto.MemberDTO">
+		delete from members where email= #{email} and passwords = #{passwords}
 	</delete>
 
 	<!-- 아이디 대용인 이메일 분실시 질문과 답을 가져오기 -->
 	<select id="takeQuestion" parameterType="java.lang.String" resultType="com.spring.dto.MemberDTO">
-		select *
-		from members
-		where nick = #{nick}
+		select * from members where nick = #{nick}
 	</select>
 
-	<!-- 아이디 대용인 이메일 분실시 질문과 답을 가져오기 -->
+	<!-- 이메일(ID) 분실시 질문과 답을 가져오기 -->
 	<select id="findEmail" parameterType="com.spring.dto.MemberDTO" resultType="java.lang.String">
-		select email
-		from members
-		where nick = #{nick} and answer =
-		#{answer}
+		select email from members where nick = #{nick} and answer = #{answer}
 	</select>
 
 	<!-- 비밀번호 분실시 -->
 	<select id="findPasswords" parameterType="java.lang.String" resultType="com.spring.dto.MemberDTO">
-		select *
-		from members
-		where email = #{email}
+		select * from members where email = #{email}
 	</select>
 
 	<!-- 이메일로 보낼 임시비밀번호를 DB에 반영한다. -->
 	<update id="makeTemporaryPasswords" parameterType="com.spring.dto.MemberDTO">
-		update members
-		set passwords = #{passwords}
-		where email = #{email}
+		update members set passwords = #{passwords} where email = #{email}
 	</update>
 
-	
 </mapper>

@@ -25,28 +25,103 @@ public class AdminService {
 	@Autowired
 	private AdminDAO adminDAO;
 
-	// 한 페이지당 보여주는 글의 개수 10개? (Number of posts that are displayed per one page)
+	// 한 페이지당 보여주는 글의 개수 10개
+	// Number of posts that are displayed per one page
 	@Value("${page.listcnt}")
 	private int page_listcnt;
 
-	// 한 페이지당 보여주는 페이지 버튼 개수 10개 (Number of buttons that are displayed per one page)
+	// 한 페이지당 보여주는 페이지 버튼 개수 10개 
+	// Number of buttons that are displayed per one page
 	@Value("${page.paginationcnt}")
 	private int page_paginationcnt;
+	
+	// 7. 1) 멤버리스트는 다 가져오는거(at 관리자페이지)
+	public List<MemberDTO> takeMemberList() {
+		return adminDAO.takeMemberList();
+	}
 
-	// 1. 게시판 대분류 카테고리 생성 Create
+	// 로그인 기록
+	public List<LoginRecordDTO> takeLoginRecord(String nick) {
+
+		return adminDAO.takeLoginRecord(nick);
+	}
+
+	// 7. 2) 특정한 한 회원이 쓴 글의 수 가져오기 (at 관리자페이지)
+	public int postCount(String writer) {
+		return adminDAO.postCount(writer);
+	}
+
+	// 7. 3) 특정한 한 회원이 쓴 댓글 수 가져오기 (at 관리자페이지)
+	public int replyCount(String writer) {
+		return adminDAO.replyCount(writer);
+	}
+
+	// 7. 4) 특정 회원 검색(at 관리자페이지)
+	public List<MemberDTO> searchMemberList(MemberDTO searchListMemberDTO) throws Exception {
+		return adminDAO.searchMemberList(searchListMemberDTO);
+	}
+
+	// 아아디 일시정지
+	public MemberDTO makeIdSuspend(String email) {
+
+		MemberDTO emailToSuspend = new MemberDTO();
+
+		int successToSuspend = adminDAO.makeIdSuspend(email);
+
+		if (successToSuspend > 0) {
+
+			emailToSuspend.setResult("successfulPause");
+
+		} else {
+			emailToSuspend.setResult("failureOfPause");
+		}
+
+		return emailToSuspend;
+	}
+
+	// 아아디 일시정지 해제
+	public MemberDTO makeIdActive(String email) {
+
+		MemberDTO activeEmail = new MemberDTO();
+
+		int successOfActivating = adminDAO.makeIdActive(email);
+
+		if (successOfActivating > 0) {
+
+			activeEmail.setResult("successOfmakingActive");
+
+		} else {
+			
+			activeEmail.setResult("failureOfmakingActive");
+		
+		}
+
+		return activeEmail;
+	}
+	
+	
+	
+
+	// 1. 1) 게시판 카테고리 생성 Create
 	public CategoryDTO makeCategory(String boardCategoryName) {
 
 		CategoryDTO categoryDTO = new CategoryDTO();
+		
 		int categoryMakingCount = adminDAO.makeCategory(boardCategoryName);
 
 		if (categoryMakingCount > 0) {
+			
 			categoryDTO.setResult("Success");
+		
 		} else {
+			
 			categoryDTO.setResult("Fail");
+		
 		}
 		return categoryDTO;
 	}
 
+	// 1. 2) 카테고리 이름 중복체크 Duplication Checking of the Category's name
 	public String checkCategory(String boardCategoryName) {
 		return adminDAO.checkCategory(boardCategoryName);
 	}
@@ -125,31 +200,6 @@ public class AdminService {
 		return boardToDelete;
 	}
 
-	// 7. 1) 멤버리스트는 다 가져오는거(at 관리자페이지)
-	public List<MemberDTO> takeMemberList() {
-		return adminDAO.takeMemberList();
-	}
-
-	// 로그인 기록
-	public List<LoginRecordDTO> takeLoginRecord(String nick) {
-
-		return adminDAO.takeLoginRecord(nick);
-	}
-
-	// 7. 2) 특정한 한 회원이 쓴 글의 수 가져오기 (at 관리자페이지)
-	public int postCount(String writer) {
-		return adminDAO.postCount(writer);
-	}
-
-	// 7. 3) 특정한 한 회원이 쓴 댓글 수 가져오기 (at 관리자페이지)
-	public int replyCount(String writer) {
-		return adminDAO.replyCount(writer);
-	}
-
-	// 7. 4) 특정 회원 검색(at 관리자페이지)
-	public List<MemberDTO> searchMemberList(MemberDTO searchListMemberDTO) throws Exception {
-		return adminDAO.searchMemberList(searchListMemberDTO);
-	}
 
 	// 8. 1) 관리자가 신고된 글 모두 리스트로 보기 (at 게시물페이지)
 	public List<ReportDTO> takeReportedPost(int page) {
@@ -199,12 +249,17 @@ public class AdminService {
 
 		int removeCount = adminDAO.removeAdminReply(replyNo);
 
-		if (removeCount > 0) { // 댓글삭제 성공
+		 // 댓글삭제 성공
+		if (removeCount > 0) {
 
-			adminReplyDTO.setResult("SUCCESS");
-		} else { // 댓글삭제 미성공
-			adminReplyDTO.setResult("FAIL"); // 대소문자가 중요합니다.
+			adminReplyDTO.setResult("success");
+			 
+		// 댓글삭제 미성공
+		} else {
+			
+			adminReplyDTO.setResult("fail");
 		}
+		
 		return adminReplyDTO;
 	}
 
@@ -272,40 +327,6 @@ public class AdminService {
 		}
 	}
 
-	// 아아디 일시정지
-	public MemberDTO makeIdSuspend(String email) {
 
-		MemberDTO emailToSuspend = new MemberDTO();
-
-		int successToSuspend = adminDAO.makeIdSuspend(email);
-
-		if (successToSuspend > 0) {
-
-			emailToSuspend.setResult("successfulPause");
-
-		} else {
-			emailToSuspend.setResult("failureOfPause");
-		}
-
-		return emailToSuspend;
-	}
-
-	// 아아디 일시정지 해제
-	public MemberDTO makeIdActive(String email) {
-
-		MemberDTO activeEmail = new MemberDTO();
-
-		int successOfActivating = adminDAO.makeIdActive(email);
-
-		if (successOfActivating > 0) {
-
-			activeEmail.setResult("successOfmakingActive");
-
-		} else {
-			activeEmail.setResult("failureOfmakingActive");
-		}
-
-		return activeEmail;
-	}
 
 }
