@@ -40,7 +40,6 @@ h1 {
 <c:import url="/WEB-INF/view/include/topMenu.jsp" />
 <article class="slider">
 	<img src="${root }/image/candy01.png">
-	
 </article>
 <!--Post List (게시글 리스트)-->
 <div class="container" style="margin-top: 50px; margin-bottom: 50px;">
@@ -75,7 +74,8 @@ h1 {
 									</c:choose>${postDTO.title }
 									<!-- If There is a Uploaded file. -->
 									<c:if test="${postDTO.imageFileName != '' }">
-										<img src="/GoroGoroCommunity/image/uploadingPhoto.png" width=20px;>
+										<img src="${root }/image/uploadingPhoto.png" width=20px;>
+										<!-- <img src="/GoroGoroCommunity/image/uploadingPhoto.png" width=20px;> -->	
 									</c:if>
 									 <!-- Number of comments (if any) -->
 									 <font color="red">[${postDTO.replyCount }]</font>

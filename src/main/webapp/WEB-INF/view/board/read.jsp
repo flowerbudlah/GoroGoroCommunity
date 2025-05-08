@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <c:set var="root" value="${pageContext.request.contextPath }/" />
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -238,7 +239,8 @@
 							<c:if test="${readPostDTO.imageFileName != ''}">
 								<div class="form-group">
 									<label for="fileName">Attached Image</label>
-									<img src="/GoroGoroCommunity/upload/${readPostDTO.imageFileName}" width=100%; height=250px; />
+									<img src="${readPostDTO.imageFileName}" width=100%; height=250px; />
+									<!-- <img src="/GoroGoroCommunity/upload/${readPostDTO.imageFileName}" width=100%; height=250px; /> -->
 								</div>
 							</c:if>
 							<label for="content">Content</label>
@@ -292,7 +294,7 @@
 						<!-- Comment Writing part End ( This section is seen only by sign-in User. ) -->
 					</div>
 					<!-- The button of Same thought -->
-					<div class="form-group"  style="margin-top: 100px; margin-bottom: 100px;">
+					<div class="form-group"  style="margin-top: 50px; margin-bottom: 100px;">
 						<center>
 							<a href="read?postNo=${postNo}" onclick="javascript:like();">
 								<input type="hidden" id="postNo" name="postNo" value="${postNo}" />

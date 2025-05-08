@@ -108,7 +108,7 @@ thead {
 											</c:choose> ${postDTO.title } 
 											<!-- 업로드 파일이 있다면 In case that there is a Uploading file --> 
 											<c:if test="${postDTO.imageFileName != '' }">
-												<img src="/GoroGoroCommunity/image/uploadingPhoto.png" width=20px;>
+												<img src="/image/uploadingPhoto.png" width=20px;>
 											</c:if> 
 											<!-- In case that there is a reply, It shows count of reply.--> 
 											<font color="red">[${postDTO.replyCount }]</font>
