@@ -1,10 +1,20 @@
 package com.spring.service;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.apache.ibatis.session.RowBounds;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -21,8 +31,8 @@ import com.spring.dto.ReportDTO;
 public class BoardService {
 
 	// 파일 업로드시 파일이 저장되는 경로
-	@Value("${path.load}")
-	private String pathLoad;
+//	@Value("${path.load}")
+//	private String pathLoad;
 
 	// 한 페이지당 보여주는 글의 개수
 	@Value("${page.listcnt}")
@@ -52,7 +62,7 @@ public class BoardService {
 		// 게시판 메인화면의 페이지처리와 관련있는 해당 게시판의 전체 글 수
 		int postCnt = boardDAO.getPostCnt(boardNo);
 
-		// page_listcnt: 한 페이지당 보여주는 글의 개수, 
+		// page_listcnt: 한 페이지당 보여주는 글의 개수,
 		// page_paginationcnt: 한 페이지당 보여주는 페이지 버튼 개수
 		PageDTO pageDTO = new PageDTO(postCnt, currentPage, page_listcnt, page_paginationcnt);
 		return pageDTO;
@@ -69,16 +79,16 @@ public class BoardService {
 		return searchList;
 	}
 
-	// 1. 4) 게시글 검색 후 화면에서의 페이지 처리 
+	// 1. 4) 게시글 검색 후 화면에서의 페이지 처리
 	public PageDTO searchPageDTO(PostDTO searchListPostDTO, int currentPage) {
-		
+
 		// 아작스로 검색을 했을 때 나오는 게시물 수
 		int searchCount = boardDAO.searchCount(searchListPostDTO);
 		PageDTO searchPageDTO = new PageDTO(searchCount, currentPage, page_listcnt, page_paginationcnt);
 		return searchPageDTO;
 	}
 
-	// 1. 5) 게시글 검색 시 검색된 게시글의 수 
+	// 1. 5) 게시글 검색 시 검색된 게시글의 수
 	public int searchCount(PostDTO searchListPostDTO) {
 		int searchCount = boardDAO.searchCount(searchListPostDTO);
 		return searchCount;
@@ -99,9 +109,9 @@ public class BoardService {
 		String UploadingImageFileName = saveUploadFile(imageFile);
 		writePostDTO.setImageFileName(UploadingImageFileName);
 
-		// 글입력 
+		// 글입력
 		int writingCount = boardDAO.writeProcess(writePostDTO);
-		
+
 		if (writingCount > 0) {
 			postDTO.setResult("success");
 		} else {
@@ -110,20 +120,57 @@ public class BoardService {
 		return postDTO;
 	}
 
-	// 2. 2) 이미지 파일 첨부(파일 저장)
+	// 2. 2) 이미지 파일 첨부(Imgur 서버저장)
 	public String saveUploadFile(MultipartFile imageFile) {
 
-		String imageFileName = imageFile.getOriginalFilename();
-
-		try {
-			imageFile.transferTo(new File(pathLoad + "/" + imageFileName));
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (imageFile == null || imageFile.isEmpty()) {
+			return null;
 		}
 
-		return imageFileName;
+		String clientId = "e957565cfb7c026";
+
+		String imgurUploadUrl = "https://api.imgur.com/3/image";
+
+		try {
+			byte[] imageBytes = imageFile.getBytes();
+			String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+
+			HttpPost post = new HttpPost(imgurUploadUrl);
+			post.setHeader("Authorization", "Client-ID " + clientId);
+
+			List<NameValuePair> params = new ArrayList<>();
+			params.add(new BasicNameValuePair("image", base64Image));
+			post.setEntity(new UrlEncodedFormEntity(params));
+
+			try (CloseableHttpClient client = HttpClients.createDefault();
+					CloseableHttpResponse response = client.execute(post)) {
+
+				String json = EntityUtils.toString(response.getEntity());
+				JSONObject jsonObj = new JSONObject(json);
+
+				if (jsonObj.getBoolean("success")) {
+					return jsonObj.getJSONObject("data").getString("link");
+				} else {
+					throw new IOException("Imgur upload failed: " + json);
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+//		String imageFileName = imageFile.getOriginalFilename();
+
+//		try {
+//			imageFile.transferTo(new File(pathLoad + "/" + imageFileName));
+//		} catch (IllegalStateException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+
+//		return imageFileName;
 	}
 
 	// 3. 1) 글수정 (Update)
@@ -193,9 +240,9 @@ public class BoardService {
 
 	// 5. 게시글 삭제 Delete
 	public PostDTO deletePost(int postNo) throws Exception {
-		
+
 		PostDTO postDTO = new PostDTO();
-		
+
 		int deleteCnt = boardDAO.deletePost(postNo);
 
 		if (deleteCnt > 0) {
@@ -205,7 +252,7 @@ public class BoardService {
 		}
 		return postDTO;
 	}
-	
+
 	// 5. 일반 게시물을 신고를 하면서, 새로운 신고내역 게시글이 만들어진다. Create
 	public ReportDTO reportProcess(ReportDTO submitReportDTO) throws Exception {
 
