@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<c:set var="root" value="${pageContext.request.contextPath }/" />
+<% request.setAttribute("root", request.getContextPath()); %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
@@ -202,6 +202,8 @@
 <c:import url="/WEB-INF/view/include/topMenu.jsp" />
 <article class="slider">
 	<img src="${root }/image/candy02.jpg">
+	<!-- https://image/candy02.jpg -->
+	<!-- https://gorogorocommunity-production.up.railway.app/image/candy01.png -->
 </article>
 <div class="container" style="margin-top: 100px; margin-bottom: 100px;">
 	<div class="row">

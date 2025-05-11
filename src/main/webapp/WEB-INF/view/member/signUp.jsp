@@ -123,9 +123,11 @@
 					})// 이메일 중복 아작스
 			
 			} else if (passwords != passwordsConfirm) {
-				alert("패스워드는 같아야합니다.");
+				alert("The passwords you entered do not match. Please try again. ");
+			
+			// In case that the email used as ID does not match the format. 
 			} else if (!emailValidity.test($("#email").val())) {
-				alert("Please, write your email in the correct format and try signing up again!");
+				alert("Please, write your email in the correct format and try signing up again! ex) abc@nate.com");
 			}
 
 		}//yn의 끝
