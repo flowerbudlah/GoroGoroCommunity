@@ -13,16 +13,16 @@
 <script type="text/javascript">
 	function reportProcess() {
 
-		var detail = $("#detail").val(); //내용
+		var detail = $("#detail").val();
 		var formData = new FormData($('#submitReportDTO')[0]);
 
 		if (detail == "") {
-			alert("내용을 입력해주세요.");
+			alert("Please enter the contents.");
 			$("#detail").focus();
 			return;
 		}
 
-		var yn = confirm("해당 게시글을 관리자에게 신고하시겠습니까? ");
+		var yn = confirm("Would you like to report this post to the administrator?");
 
 		if (yn) {
 
@@ -32,18 +32,18 @@
 				data : formData,
 				cache : false,
 				async : true,
-				contentType : false, //이것을 붙이고 나서 업로드가 된것이다. 
-				processData : false, // 이것을 붙이고 업로드가 되었다. 
+				contentType : false,
+				processData : false,
 				type : "POST",
 				success : function(obj) {
 					if (obj != null) {
 						var result = obj.result;
 						if (result == "SUCCESS") {
-							alert("신고 접수일로부터 1~2일 이내에 처리됩니다. 감사합니다.");
+							alert("It will be processed within 1~2 days from the date of report.");
 							history.go(-2);
 							return;
 						} else {
-							alert("신고실패");
+							alert("I am sorry that your report failed.");
 							return;
 						}
 					}
@@ -51,12 +51,12 @@
 				error : function(request, status, error) {
 					alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 				}
-			}) //아작스 
-		} // yn의 끝
-	} // Process()의 끝
+			})
+		}
+	}
 </script>
 <style>
-/* 슬라이더 영역 CSS */
+/* Slider's section CSS */
 .slider img {
 	display: block;
 	width: 100%;
@@ -70,34 +70,37 @@ body {
 </head>
 <body>
 <c:import url="/WEB-INF/view/include/topMenu.jsp" />
-<article class="slider"><img src="${root }image/yamamotoshinji_sapporo_clockTower.jpg"></article>
-	<!-- 글쓰기 부분 시작 -->
+	<article class="slider">
+		<img src="${root }image/Teletobee03.png">
+	</article>
 	<div class="container" style="margin-top: 100px; margin-bottom: 100px">
 		<div class="row">
 			<div class="col-sm-3"></div>
 			<div class="col-sm-7">
 				<div class="card shadow-sm">
 					<div class="card-body">
-						<h5 class="card-title">게시글 신고양식</h5>
+						<h5 class="card-title">Report Form</h5>
 						<p>
 							양식에 맞게 신고를 하시면 관리자에게 <strong>해당 글(글 번호:${postNo })</strong>의
 							신고접수가 됩니다. <br>신고가 접수된 게시물은 관리자의 판단 하에 처리되며, 법적처벌을 받을 수도
 							있습니다.
 						</p>
-						<form id="submitReportDTO" name="submitReportDTO" method="post" enctype="multipart/form-data">
+						<form id="submitReportDTO" name="submitReportDTO" method="post"
+							enctype="multipart/form-data">
 							<input type="hidden" id="postNo" name="postNo" value="${postNo }">
-							<input type="hidden" id="reporter" name="reporter" value="${signInMemberDTO.nick }">
+							<input type="hidden" id="reporter" name="reporter"
+								value="${signInMemberDTO.nick }">
 							<div class="form-group">
-								<label>신고자</label>
-								<input type="text" value="${signInMemberDTO.nick }" class="form-control" disabled />
+								<label>신고자</label> <input type="text"
+									value="${signInMemberDTO.nick }" class="form-control" disabled />
 							</div>
 							<div class="form-group">
-								<label>받는사람</label>
-								<input type="text" value="관리자" class="form-control" disabled />
+								<label>받는사람</label> <input type="text" value="관리자"
+									class="form-control" disabled />
 							</div>
 							<div class="form-group">
-								<label for="reason">신고사유</label>
-								<select name="reason" id="reason" class="form-control">
+								<label for="reason">신고사유</label> <select name="reason"
+									id="reason" class="form-control">
 									<option value="명예훼손, 모욕, 비방, 허위사실 유포 등">명예훼손, 모욕, 비방, 허위사실 유포 등</option>
 									<option value="광고, 도배 등">광고, 도배 등</option>
 									<option value="음란물">음란물</option>
@@ -126,7 +129,6 @@ body {
 			<div class="col-sm-3"></div>
 		</div>
 	</div>
-	<!-- 하단 정보 -->
 <c:import url="/WEB-INF/view/include/bottomInfo.jsp" />
 </body>
 </html>

@@ -142,7 +142,7 @@ body{ background-color: white; }
 <body>
 <c:import url="/WEB-INF/view/include/topMenu.jsp"/>
 <article class="slider">
-	<img src="${root }image/candy07.jpg">
+	<img src="${root }image/Teletobee03.png">
 </article>
 <div class="container" style="margin-top:50px; margin-bottom:50px;">
 	<div class="row">
