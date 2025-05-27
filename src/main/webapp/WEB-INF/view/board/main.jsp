@@ -73,10 +73,12 @@ h1 {
 										<c:otherwise></c:otherwise>
 									</c:choose>${postDTO.title }
 									<!-- If There is a Uploaded file. -->
-									<c:if test="${postDTO.imageFileName != '' }">
+									<c:if test="${not empty postDTO.imageFileName}">
 										<img src="${root }/image/uploadingPhoto.png" width=20px;>
-										<!-- <img src="/GoroGoroCommunity/image/uploadingPhoto.png" width=20px;> -->	
-									</c:if>
+										<!-- <img src="/GoroGoroCommunity/image/uploadingPhoto.png" width=20px;> -->
+
+</c:if>
+							
 									 <!-- Number of comments (if any) -->
 									 <font color="red">[${postDTO.replyCount }]</font>
 								</a>

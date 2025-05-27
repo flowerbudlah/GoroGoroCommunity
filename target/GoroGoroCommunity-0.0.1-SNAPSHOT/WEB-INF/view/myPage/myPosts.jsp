@@ -32,7 +32,7 @@
 } /* 슬라이더 영역 CSS */
 body {
 	background-image:
-		url(http://localhost:8090/GoroGoroCommunity/image/bottom-bg.jpg);
+		url(/GoroGoroCommunity/image/bottom-bg.jpg);
 	background-repeat: no-repeat;
 	background-position: center bottom;
 	background-attachment: fixed;
@@ -95,7 +95,7 @@ h2 {
 						<tr>
 							<td class="text-center d-none d-md-table-cell">${postDTO.postNo }</td>
 							<td><a
-								href='http://localhost:8090/GoroGoroCommunity/board/read?postNo=${postDTO.postNo}'
+								href='/GoroGoroCommunity/board/read?postNo=${postDTO.postNo}'
 								style="color: black"> [${postDTO.boardName}]
 									${postDTO.title } <!-- 업로드 파일이 있다면 --> <c:if
 										test="${postDTO.imageFileName != '' }">
@@ -116,7 +116,7 @@ h2 {
 							<td class="text-center d-none d-md-table-cell">${postDTO.postNo }</td>
 							<td>
 								<%--제목 부분--%> <a
-								href='http://localhost:8090/GoroGoroCommunity/board/read?postNo=${postDTO.postNo}'
+								href='/GoroGoroCommunity/board/read?postNo=${postDTO.postNo}'
 								style="color: black"> [${postDTO.boardName}] ${postDTO.title }
 									<!-- 업로드 파일이 있다면 --> <c:if
 										test="${postDTO.imageFileName != '' }">

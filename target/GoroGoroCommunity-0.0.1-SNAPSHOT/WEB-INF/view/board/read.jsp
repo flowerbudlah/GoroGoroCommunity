@@ -221,7 +221,7 @@
 							<label for="writer">Writer</label>
 							<c:choose>
 								<c:when test="${readPostDTO.boardNo == 2 }">
-									<input type="text" id="writer" name="writer" class="form-control" value="익명" disabled="disabled" />
+									<input type="text" id="writer" name="writer" class="form-control" value="Anonymous" disabled="disabled" />
 								</c:when>
 								<c:otherwise>
 									<input type="text" id="writer" name="writer" class="form-control" value="${readPostDTO.writer}" disabled="disabled" />
@@ -238,13 +238,16 @@
 						</div>
 						<!-- Attached image and Content of the article -->
 						<div class="form-group">
-							<c:if test="${readPostDTO.imageFileName != ''}">
-								<div class="form-group">
+						<c:if test="${not empty readPostDTO.imageFileName}">
+							<div class="form-group">
 									<label for="fileName">Attached Image</label>
 									<img src="${readPostDTO.imageFileName}" width=100%; height=250px; />
 									<!-- <img src="/GoroGoroCommunity/upload/${readPostDTO.imageFileName}" width=100%; height=250px; /> -->
 								</div>
-							</c:if>
+</c:if>
+						
+						
+						
 							<label for="content">Content</label>
 							<textarea id="content" name="content" class="form-control" rows="15" style="resize: none" disabled="disabled">${readPostDTO.content}</textarea>
 						</div>
