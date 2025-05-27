@@ -99,7 +99,7 @@ h1 {
 						<tr>
 							<td class="text-center d-none d-md-table-cell">${postDTO.postNo }</td>
 							<td>
-								<%--제목 부분--%>
+								<%-- 제목 부분 --%>
 								<a href='read?postNo=${postDTO.postNo}' style="color: black">
 									<c:choose>
 										<c:when test="${boardNo == 1 }">[${boardName }]</c:when>
