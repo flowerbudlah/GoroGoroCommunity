@@ -12,9 +12,13 @@ After that, the project underwent maintenance and feature enhancements through 2
 5. Tools: Eclipse IDE for Enterprise Java and Web Developers - 2021-03, Maven, GitHub, Git<br>
 <h3>💡 Key Features</h3>
 1. Admin and user login system<br>
-2. Product registration and management<br>
-3. Image upload via local and server environments<br>
-4. Bulletin board with post and reply (threaded comment) features<br>
-5. Responsive design using Bootstrap carousel and cards<br>
+2. Image upload via local and server environments<br>
+3. Bulletin board with post and reply (threaded comment) features<br>
+4. Responsive design using Bootstrap carousel and cards<br>
+5. When logged in as an administrator, the admin can create, modify, and delete categories on any topic, <br>as well as the boards within those categories.<br>
+6. Regular users can report other users who post inappropriate content or leave malicious comments.<br>
+7. Administrators have the authority to suspend users who violate the rules, preventing them from logging in for a certain period.<br>
 <br>
-This project was designed to simulate a small-scale e-commerce and community platform. Through this application, I aimed to strengthen my understanding of MVC architecture, session management, and deployment using Docker containers on cloud platforms.
+This project was designed to simulate a small-scale community platform. Through this application, I aimed to strengthen my understanding of MVC architecture, session management, and deployment using Docker containers on cloud platforms.<br><br>
+<h3>🛠️Upcoming Feature</h3>
+Currently, when a request is made after the session has expired (i.e., the user is logged out), the server fails to handle it properly and returns an HTTP 500 Internal Server Error. This issue will be addressed by improving the system so that, in the future, users will be automatically redirected to the login page instead of seeing an error page when their session has expired.
