@@ -196,7 +196,9 @@
 </head>
 <body>
 <c:import url="/WEB-INF/view/include/topMenu.jsp" />
-<article class="slider"><img src="${root }image/candy03.jpg"></article>
+<article class="slider">
+	<img src="image/candy03.jpg">
+</article>
 <div class="container" style="margin-top: 100px; margin-bottom: 100px;">
 	<div class="row">
 		<div class="col-sm-3"></div>

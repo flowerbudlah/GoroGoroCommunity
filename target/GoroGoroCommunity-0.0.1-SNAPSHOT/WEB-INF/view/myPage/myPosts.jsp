@@ -1,38 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="root" value="${pageContext.request.contextPath }/" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>GoroGoro Community(ゴロゴロ)</title>
-<link rel="icon" type="image/x-icon"
-	href="/image/favicon.png">
+<link rel="icon" type="image/x-icon" href="/image/favicon.png">
 <!-- Bootstrap CDN -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<!-- 폰트 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<!-- font -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
 <style>
 .slider img {
 	display: block;
 	width: 100%;
 	max-width: 100%;
 	height: 300px;
-} /* 슬라이더 영역 CSS */
+} 
+/* The slider's section' CSS */
 body {
-	background-image:
-		url(/image/bottom-bg.jpg);
 	background-repeat: no-repeat;
 	background-position: center bottom;
 	background-attachment: fixed;
@@ -48,12 +40,11 @@ h2 {
 </style>
 </head>
 <body>
-	<!-- 상단 -->
-	<c:import url="/WEB-INF/view/include/topMenu.jsp" />
-	<!-- 그 게시판 윗 부분 그림-->
-	<article class="slider">
-		<img src="/image/candy03.jpg">
-	</article>
+<c:import url="/WEB-INF/view/include/topMenu.jsp" />
+<article class="slider">
+	<img src="image/candy03.jpg">
+</article>
+
 	<!--Post List(내가 쓴 게시글 리스트)-->
 	<div class="container" style="margin-top: 50px; margin-bottom: 50px;">
 		<div class="card-body">
@@ -94,13 +85,11 @@ h2 {
 					<c:forEach var="postDTO" items="${myPostList }">
 						<tr>
 							<td class="text-center d-none d-md-table-cell">${postDTO.postNo }</td>
-							<td><a
-								href='/board/read?postNo=${postDTO.postNo}'
-								style="color: black"> [${postDTO.boardName}]
-									${postDTO.title } <!-- 업로드 파일이 있다면 --> <c:if
+							<td><a href='/board/read?postNo=${postDTO.postNo}'
+								style="color: black"> [${postDTO.boardName}] ${postDTO.title }
+									<!-- 업로드 파일이 있다면 --> <c:if
 										test="${postDTO.imageFileName != '' }">
-										<img src="/image/uploadingPhoto.png"
-											width=20px;>
+										<img src="/image/uploadingPhoto.png" width=20px;>
 									</c:if> <!-- 댓글이 있을경우, 댓글 수--> <font color="red">[${postDTO.replyCount }]</font>
 							</a></td>
 							<td class="text-center d-none d-md-table-cell">${postDTO.writer}</td>
@@ -115,13 +104,11 @@ h2 {
 						<tr>
 							<td class="text-center d-none d-md-table-cell">${postDTO.postNo }</td>
 							<td>
-								<%--제목 부분--%> <a
-								href='/board/read?postNo=${postDTO.postNo}'
+								<%--제목 부분--%> <a href='/board/read?postNo=${postDTO.postNo}'
 								style="color: black"> [${postDTO.boardName}] ${postDTO.title }
 									<!-- 업로드 파일이 있다면 --> <c:if
 										test="${postDTO.imageFileName != '' }">
-										<img src="/image/uploadingPhoto.png"
-											width=20px;>
+										<img src="/image/uploadingPhoto.png" width=20px;>
 									</c:if> <!-- 댓글이 있을경우, 댓글 수--> <font color="red">[${postDTO.replyCount }]</font>
 							</a>
 							</td>
@@ -239,7 +226,6 @@ h2 {
 			</c:choose>
 
 			<!-- 검색 기능 -->
-			<!-- http://localhost:8090/GoroGoroCommunity/GoroGoroCommunity/searchResult?type=titleANDcontent&keyword=test&boardNo=2 -->
 			<form action="searchResult" name="search-form" autocomplete="off"
 				class="text-center" style="margin-top: 30px;">
 				<select id="type" name="type">
@@ -254,6 +240,6 @@ h2 {
 			<!-- 검색기능끝 -->
 		</div>
 	</div>
-	<c:import url="/WEB-INF/view/include/bottomInfo.jsp" />
+<c:import url="/WEB-INF/view/include/bottomInfo.jsp" />
 </body>
 </html>
