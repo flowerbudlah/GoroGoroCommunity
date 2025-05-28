@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:set var="root" value="${pageContext.request.contextPath }/" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,9 +41,8 @@ h2 {
 <body>
 <c:import url="/WEB-INF/view/include/topMenu.jsp" />
 <article class="slider">
-	<img src="image/candy03.jpg">
+	<img src="${pageContext.request.contextPath}/image/candy03.jpg">
 </article>
-
 	<!--Post List(내가 쓴 게시글 리스트)-->
 	<div class="container" style="margin-top: 50px; margin-bottom: 50px;">
 		<div class="card-body">
