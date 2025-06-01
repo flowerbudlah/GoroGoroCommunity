@@ -4,10 +4,8 @@
 
 	<!-- 1. 1) 메인페이지로 간다.(with 글 목록) -->
 	<select id="goMain" parameterType="java.lang.Integer" resultType="com.spring.dto.PostDTO">
-		select f.postNo, f.title, f.content, f.writer, f.regDate,
-		f.viewCount, f.sameThinking, f.boardNo, f.imageFileName,
-		(select
-		count(*) from reply where postNo = f.postNo) as replyCount
+		select f.postNo, f.title, f.content, f.writer, f.regDate, f.viewCount, f.sameThinking, f.boardNo, f.imageFileName,
+			(select count(*) from reply where postNo = f.postNo) as replyCount
 		from freeboard f
 		where f.boardNo = #{boardNo}
 		order by f.postNo desc
