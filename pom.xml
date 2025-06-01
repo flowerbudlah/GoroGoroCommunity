@@ -197,14 +197,14 @@
 		</dependency>
 		
 		<!-- Uploading a Image -->
-		<!-- HTTP 요청용 -->
+		<!-- For HTTP's Repuest -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>4.5.13</version>
 		</dependency>
 
-		<!-- JSON 파싱용 -->
+		<!-- For Json's Parsing -->
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
