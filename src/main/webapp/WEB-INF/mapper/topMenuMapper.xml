@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="topMenu">
+
+	<!-- 1. 게시판 대분류(카테고리) 불러오기 Taking the Category -->
+	<select id="CategoryList" resultType="com.spring.dto.CategoryDTO">
+		select * from boardcategory order by boardCategoryNo
+	</select>
+
+	<!-- 2. 게시판 가져오기 Taking the Board -->
+	<select id="BoardList" resultType="com.spring.dto.BoardDTO">
+		select * from boardincategory
+	</select>
+
+</mapper>
